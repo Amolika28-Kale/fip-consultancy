@@ -1,6 +1,8 @@
 {
   "name": "fip-demo2-fintech",
   "private": true,
+  "type": "module",
+
   "scripts": {
     "dev": "vite",
     "build": "npx vite build",
