@@ -123,7 +123,7 @@ export default function Investments() {
                   "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200",
                 ].map((img, idx) => (
                   <div key={idx} className="w-[300px] h-[200px] md:w-[400px] md:h-[250px] shrink-0">
-                    <img src={img} className="h-full w-full object-cover rounded-[2rem] shadow-xl grayscale hover:grayscale-0 transition-all duration-700" alt="Asset" />
+                    <img src={img} className="h-full w-full object-cover rounded-[2rem] shadow-xl  transition-all duration-700" alt="Asset" />
                   </div>
                 ))}
               </div>
