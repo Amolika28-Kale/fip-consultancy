@@ -1,7 +1,6 @@
 {
   "name": "fip-demo2-fintech",
   "private": true,
-  "type": "module",
 
   "scripts": {
     "dev": "vite",
