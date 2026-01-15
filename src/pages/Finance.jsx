@@ -2,255 +2,313 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { 
-  ShieldCheck, Briefcase, Landmark, BadgePercent, 
-  ArrowRight, FileCheck, Coins, BarChart3,
-  ChevronRight, Settings, CheckCircle2
+import {
+  Briefcase,
+  Landmark,
+  BadgePercent,
+  ArrowRight,
+  FileCheck,
+  Coins,
+  BarChart3,
+  Settings,
+  CheckCircle2
 } from "lucide-react";
 
-/* ================= UPGRADED ANIMATIONS ================= */
+/* ================= ANIMATIONS ================= */
 const containerStagger = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.12, delayChildren: 0.1 }
   }
 };
 
 const perspectiveReveal = {
-  hidden: { opacity: 0, y: 40, rotateX: -15, filter: "blur(10px)" },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
+  hidden: { opacity: 0, y: 40, rotateX: -12, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
     rotateX: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] }
   }
+};
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.85 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.45 } }
 };
 
 export default function Finance() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-[#FAF9FF] text-slate-900 overflow-x-hidden pt-16 md:pt-24 selection:bg-purple-100 selection:text-purple-900">
+    <div className="bg-[#F5F8FF] text-slate-900 overflow-x-hidden pt-20 md:pt-28">
 
-      {/* ================= HERO: INSTITUTIONAL MODERNISM ================= */}
-      <section className="relative min-h-[80vh] flex items-center bg-white border-b border-purple-100 overflow-hidden px-6">
-        {/* Advanced Ambient Glows */}
-        <motion.div 
-          animate={{ x: [0, 50, 0], y: [0, 30, 0], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-20 -left-20 w-[300px] h-[300px] md:w-[700px] md:h-[700px] bg-purple-200/40 blur-[100px] rounded-full" 
+      {/* ================= HERO ================= */}
+      <section className="relative min-h-[80vh] bg-white border-b border-[#E3ECFF] flex items-center overflow-hidden px-6">
+
+        {/* Ambient Glows */}
+        <motion.div
+          animate={{ x: [0, 40, 0], y: [0, 25, 0], opacity: [0.25, 0.45, 0.25] }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-32 -left-32 w-[700px] h-[700px] bg-[#6495ED33] blur-[140px] rounded-full"
         />
-        <div className="absolute bottom-[-100px] right-[-50px] w-[250px] h-[250px] md:w-[600px] md:h-[600px] bg-indigo-50/50 blur-[120px] rounded-full" />
+        <motion.div
+          animate={{ x: [0, -30, 0], y: [0, -20, 0], opacity: [0.2, 0.35, 0.2] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-[-160px] right-[-120px] w-[600px] h-[600px] bg-[#EEF4FF] blur-[160px] rounded-full"
+        />
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <motion.div
             variants={containerStagger}
             initial="hidden"
             animate="visible"
-            className="max-w-4xl"
+            className="max-w-5xl"
           >
-            <motion.div variants={perspectiveReveal} className="flex items-center gap-3 mb-8">
-              <div className="h-1 w-12 bg-purple-600 rounded-full" />
-              <span className="uppercase text-[10px] tracking-[0.4em] font-black text-purple-600">
+
+            <motion.div
+              variants={perspectiveReveal}
+              className="flex items-center gap-4 mb-10"
+            >
+              <div className="h-[2px] w-14 bg-[#6495ED] rounded-full" />
+              {/* <span className="uppercase text-[11px] tracking-[0.35em] font-black text-[#6495ED]">
                 Institutional Liquidity
-              </span>
+              </span> */}
             </motion.div>
 
             <motion.h1
               variants={perspectiveReveal}
-              className="text-5xl sm:text-8xl md:text-9xl font-black leading-[1] text-slate-900 tracking-tighter mb-8"
+              className="text-6xl sm:text-8xl md:text-9xl font-black leading-[0.95] tracking-tight mb-10"
             >
               Structured <br />
-              <span className="text-purple-600 italic">Capital.</span>
+              <span className="text-[#6495ED] ">Capital.</span>
             </motion.h1>
 
             <motion.p
               variants={perspectiveReveal}
-              className="max-w-2xl text-lg sm:text-xl md:text-2xl text-slate-500 leading-relaxed font-medium mb-12"
+              className="max-w-3xl text-lg sm:text-xl md:text-2xl text-slate-500 font-medium mb-14"
             >
-              Institutional-grade funding mechanisms designed for sustainable scaling, 
-              governed by strict compliance and asset-backed security.
+              Institutional-grade funding mechanisms designed for scalable growth,
+              governed by compliance and asset-backed certainty.
             </motion.p>
-            
+
             <motion.div variants={perspectiveReveal}>
-              <button 
+              <button
                 onClick={() => navigate("/contact")}
-                className="group w-full sm:w-auto flex items-center justify-center gap-4 bg-slate-950 text-white px-10 py-5 rounded-2xl font-black tracking-widest hover:bg-purple-600 transition-all shadow-2xl shadow-purple-200/20"
+                className="group flex items-center gap-5 bg-slate-950 text-white px-14 py-7 rounded-2xl font-black tracking-widest hover:bg-[#6495ED] transition-all shadow-2xl"
               >
-                REQUEST PROPOSAL <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                REQUEST PROPOSAL
+                <ArrowRight className="group-hover:translate-x-2 transition-transform" />
               </button>
             </motion.div>
+
           </motion.div>
         </div>
       </section>
 
-      {/* ================= CAPABILITIES: INTERACTIVE BENTO GRID ================= */}
-      <section className="py-24 md:py-32 bg-white">
+      {/* ================= CAPABILITIES ================= */}
+      <section className="py-28 md:py-36 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-6"
+
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mb-24"
           >
-            <div>
-              <h2 className="text-5xl md:text-8xl font-black text-slate-900 tracking-tighter">
-                Capabilities
-              </h2>
-              <p className="text-slate-500 text-lg md:text-xl mt-4">Precision-engineered liquidity solutions.</p>
-            </div>
-            <div className="hidden md:block h-px flex-1 bg-purple-50 mx-10 mb-6" />
+            <h2 className="text-5xl md:text-8xl font-black tracking-tight">
+              Capabilities
+            </h2>
+            <p className="mt-6 text-xl text-slate-500">
+              Precision-engineered liquidity solutions.
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          <motion.div
+            className="grid lg:grid-cols-2 gap-10"
+            variants={containerStagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {[
               {
                 title: "Personal & Secured Loans",
                 icon: <Coins size={32} />,
-                desc: "High-velocity financing with fast-track digital approval workflows for immediate liquidity.",
-                items: ["Up to ₹10 Lakhs", "7 Year Tenure", "Fast Sanction"],
+                desc: "Fast-track liquidity with digital-first approval workflows.",
+                items: ["Up to ₹10 Lakhs", "7 Year Tenure", "Quick Sanction"],
                 theme: "light"
               },
               {
                 title: "Business & Project Finance",
                 icon: <Briefcase size={32} />,
-                desc: "Strategic growth capital for infrastructure, scaling, and institutional corporate expansion.",
-                items: ["₹10L to ₹10Cr", "Equity Aligned", "Market Ready"],
+                desc: "Growth-aligned funding for enterprises and infrastructure.",
+                items: ["₹10L to ₹10Cr", "Structured Capital", "Scalable"],
                 theme: "dark"
               },
               {
                 title: "Land & Property Finance",
                 icon: <Landmark size={32} />,
-                desc: "Unlocking capital from immovable assets via structured property-backed lending models.",
-                items: ["Resi: 60% LTV", "Comm: 70% LTV", "12 Mth Term"],
+                desc: "Capital unlocked via asset-backed property lending.",
+                items: ["Resi 60% LTV", "Comm 70% LTV", "Short Term"],
                 theme: "tint"
               },
               {
                 title: "Trade & Asset Finance",
                 icon: <BarChart3 size={32} />,
-                desc: "Global working capital optimization for trade, export, and commodity-based operations.",
-                items: ["Gold Funding", "Export Finance", "Invoice Structuring"],
+                desc: "Working capital solutions for trade and exports.",
+                items: ["Gold Finance", "Export Credit", "Invoice Funding"],
                 theme: "vibrant"
-              },
+              }
             ].map((block, i) => (
               <motion.div
                 key={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
                 variants={perspectiveReveal}
-                whileHover={{ y: -8, scale: 1.01 }}
-                className={`p-10 md:p-14 rounded-[3.5rem] border border-purple-50 flex flex-col justify-between transition-all shadow-sm hover:shadow-3xl ${
-                  block.theme === "dark" ? "bg-slate-900 text-white border-slate-800" :
-                  block.theme === "tint" ? "bg-[#FAF9FF]" :
-                  block.theme === "vibrant" ? "bg-purple-600 text-white" : "bg-white"
+                className={`p-14 rounded-[3.5rem] border transition-all hover:-translate-y-2 hover:shadow-2xl ${
+                  block.theme === "dark"
+                    ? "bg-slate-950 text-white border-slate-800"
+                    : block.theme === "vibrant"
+                    ? "bg-[#6495ED] text-white border-[#6495ED]"
+                    : block.theme === "tint"
+                    ? "bg-[#EEF4FF] border-[#E3ECFF]"
+                    : "bg-white border-[#E3ECFF]"
                 }`}
               >
-                <div>
-                  <div className={`w-16 h-16 flex items-center justify-center rounded-2xl mb-10 transition-transform group-hover:scale-110 ${
-                    block.theme === "dark" || block.theme === "vibrant" ? "bg-white/10 text-white" : "bg-purple-50 text-purple-600 shadow-sm"
-                  }`}>
-                    {block.icon}
-                  </div>
-                  <h3 className="text-3xl md:text-4xl font-black mb-6 tracking-tighter">
-                    {block.title}
-                  </h3>
-                  <p className={`mb-12 text-lg leading-relaxed ${block.theme === "dark" || block.theme === "vibrant" ? "text-purple-100" : "text-slate-500"}`}>
-                    {block.desc}
-                  </p>
+                <div
+                  className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-10 ${
+                    block.theme === "dark" || block.theme === "vibrant"
+                      ? "bg-white/10"
+                      : "bg-[#EEF4FF] text-[#6495ED]"
+                  }`}
+                >
+                  {block.icon}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <h3 className="text-3xl font-black mb-6">
+                  {block.title}
+                </h3>
+
+                <p className={`mb-12 text-lg ${
+                  block.theme === "dark" || block.theme === "vibrant"
+                    ? "text-blue-100"
+                    : "text-slate-500"
+                }`}>
+                  {block.desc}
+                </p>
+
+                <div className="grid sm:grid-cols-3 gap-4">
                   {block.items.map((item, idx) => (
-                    <div key={idx} className={`flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest px-4 py-3 rounded-xl ${
-                      block.theme === "dark" || block.theme === "vibrant" ? "bg-white/10 text-white" : "bg-purple-50 text-purple-600"
-                    }`}>
+                    <motion.div
+                      key={idx}
+                      variants={scaleIn}
+                      className={`flex items-center justify-center gap-2 text-[11px] font-black uppercase tracking-widest px-4 py-3 rounded-xl ${
+                        block.theme === "dark" || block.theme === "vibrant"
+                          ? "bg-white/10"
+                          : "bg-[#EEF4FF] text-[#6495ED]"
+                      }`}
+                    >
                       <CheckCircle2 size={12} />
                       {item}
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ================= EXECUTION MODEL: STAGGERED TIMELINE ================= */}
-      <section className="py-24 md:py-32 bg-[#F5F3FF] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-20 md:mb-32 text-center max-w-3xl mx-auto">
-            <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl"
-            >
-              <Settings className="text-purple-600" size={32} />
-            </motion.div>
-            <h2 className="text-4xl md:text-8xl font-black text-slate-900 tracking-tighter mb-6">
-              Execution Framework
-            </h2>
-            <p className="text-slate-500 font-black uppercase tracking-[0.3em] text-xs">Standard Operating Procedure</p>
-          </div>
+      {/* ================= EXECUTION MODEL ================= */}
+      <section className="py-28 md:py-36 bg-[#EEF4FF]">
+        <div className="max-w-7xl mx-auto px-6 text-center">
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            className="w-20 h-20 mx-auto mb-12 bg-white rounded-full flex items-center justify-center shadow-xl"
+          >
+            <Settings className="text-[#6495ED]" size={32} />
+          </motion.div>
+
+          <motion.h2
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-4xl md:text-8xl font-black mb-24"
+          >
+            Execution Framework
+          </motion.h2>
+
+          <motion.div
+            className="grid md:grid-cols-4 gap-8"
+            variants={containerStagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {[
-              { t: "Requirement", d: "Deep dive into objectives & cash flow.", i: <BarChart3 /> },
-              { t: "Verification", d: "Asset verification & KYC compliance.", i: <FileCheck /> },
+              { t: "Requirement", d: "Understanding objectives & liquidity needs.", i: <BarChart3 /> },
+              { t: "Verification", d: "KYC, asset & compliance validation.", i: <FileCheck /> },
               { t: "Structuring", d: "Risk-aligned financial engineering.", i: <BadgePercent /> },
-              { t: "Deployment", d: "Fast-track capital release & release.", i: <Coins /> },
+              { t: "Deployment", d: "Rapid capital release.", i: <Coins /> }
             ].map((step, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="group bg-white p-10 md:p-12 rounded-[3rem] border border-purple-100 hover:border-purple-600 transition-all hover:shadow-2xl hover:shadow-purple-200/50"
+                variants={fadeInUp}
+                className="bg-white p-12 rounded-[3rem] border border-[#E3ECFF] hover:shadow-2xl transition-all"
               >
-                <div className="text-5xl font-black text-purple-600/10 mb-8 transition-colors group-hover:text-purple-600/20">0{i + 1}</div>
-                <div className="mb-8 p-5 bg-purple-50 rounded-2xl w-fit text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-all shadow-sm">
+                <div className="text-5xl font-black text-[#6495ED22] mb-6">
+                  0{i + 1}
+                </div>
+                <div className="p-5 mb-6 bg-[#EEF4FF] rounded-2xl text-[#6495ED] inline-block">
                   {step.i}
                 </div>
-                <h4 className="text-2xl font-black mb-4 text-slate-900">
-                  {step.t}
-                </h4>
-                <p className="text-slate-500 text-sm leading-relaxed font-medium">
-                  {step.d}
-                </p>
+                <h4 className="text-2xl font-black mb-3">{step.t}</h4>
+                <p className="text-slate-500 text-sm">{step.d}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ================= FINAL CTA: INSTITUTIONAL FINALE ================= */}
-      <section className="py-24 md:py-32 px-6">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          className="max-w-6xl mx-auto bg-slate-950 rounded-[4rem] p-12 md:p-28 text-center relative overflow-hidden shadow-3xl shadow-purple-900/40"
+      {/* ================= FINAL CTA ================= */}
+      <section className="py-36 px-6">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96, y: 40 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-6xl mx-auto bg-slate-950 rounded-[4rem] p-20 md:p-28 text-center shadow-2xl"
         >
-          {/* Animated Purple Gradient Light */}
-          <motion.div
-            animate={{ x: ["-100%", "200%"] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/10 to-transparent skew-x-12"
-          />
+          <motion.h2
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-4xl md:text-8xl font-black text-white mb-16 leading-tight"
+          >
+            Capital structured <br />
+            with <span className="text-[#6495ED]">absolute clarity.</span>
+          </motion.h2>
 
-          <div className="relative z-10">
-            <h2 className="text-4xl md:text-8xl font-black text-white mb-12 leading-[1] tracking-tighter">
-              Capital structured <br /> 
-              with <span className="text-purple-400">absolute certainty.</span>
-            </h2>
-
-            <button
-              onClick={() => navigate("/contact")}
-              className="group bg-purple-600 text-white px-12 py-6 rounded-2xl font-black tracking-widest hover:bg-white hover:text-slate-900 transition-all text-base md:text-lg shadow-2xl flex items-center justify-center gap-4 mx-auto"
-            >
-              SPEAK WITH AN ADVISOR 📞
-            </button>
-          </div>
+          <motion.button
+            variants={scaleIn}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            onClick={() => navigate("/contact")}
+            className="bg-[#6495ED] hover:bg-white hover:text-slate-900 transition-all px-16 py-8 rounded-2xl font-black tracking-widest shadow-xl"
+          >
+            SPEAK WITH AN ADVISOR 📞
+          </motion.button>
         </motion.div>
       </section>
 

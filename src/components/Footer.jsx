@@ -8,10 +8,10 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-white border-t border-purple-50 px-6 pt-24 pb-14 overflow-hidden selection:bg-purple-100">
+    <footer className="relative bg-white border-t border-[#D6E4FF] px-6 pt-24 pb-14 overflow-hidden selection:bg-[#EAF1FF]">
 
-      {/* Subtle purple luxury background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-50/40 to-transparent pointer-events-none" />
+      {/* Soft Cornflower Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#EAF1FF]/60 to-transparent pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
 
@@ -21,16 +21,15 @@ export default function Footer() {
           {/* BRAND */}
           <div className="space-y-8">
             <img src={logo} alt="FIP Consultancy" className="h-9 object-contain" />
-
             <p className="text-[10px] leading-relaxed uppercase tracking-[0.25em] font-bold text-slate-400">
               Trusted advisory for finance, investment & property — built on
               transparency, discipline, and long-term wealth creation.
             </p>
           </div>
 
-          {/* SERVICES */}
+          {/* NAVIGATION */}
           <div>
-            <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-700 mb-9">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-[#2C4FA3] mb-9">
               Quick Navigation
             </h3>
             <ul className="space-y-5">
@@ -41,7 +40,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* FINANCE OPTIONS */}
+          {/* CAPITAL */}
           <div>
             <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-800 mb-9">
               Capital Avenues
@@ -54,12 +53,9 @@ export default function Footer() {
                 "Gold & Trade Finance",
                 "Export Liquidity",
               ].map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center gap-3 group cursor-default"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-200 group-hover:bg-purple-600 transition-all" />
-                  <span className="group-hover:text-purple-700 transition-colors tracking-wide">
+                <li key={item} className="flex items-center gap-3 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D6E4FF] group-hover:bg-[#6495ED] transition-all" />
+                  <span className="group-hover:text-[#2C4FA3] transition-colors tracking-wide">
                     {item}
                   </span>
                 </li>
@@ -75,42 +71,32 @@ export default function Footer() {
 
             <div className="space-y-6 text-[11px] text-slate-500 font-bold">
               <div className="flex gap-4 group">
-                <MapPin size={14} className="text-purple-600 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                <span className="leading-relaxed uppercase tracking-widest">
+                <MapPin size={14} className="text-[#6495ED]" />
+                <span className="uppercase tracking-widest">
                   Financial District<br />Executive Office
                 </span>
               </div>
-
-              <div className="flex items-center gap-4 group">
-                <Phone size={14} className="text-purple-600 shrink-0 group-hover:scale-110 transition-transform" />
-                <span className="tracking-widest">+91 00000 00000</span>
+              <div className="flex gap-4">
+                <Phone size={14} className="text-[#6495ED]" />
+                <span>+91 00000 00000</span>
               </div>
-
-              <div className="flex items-center gap-4 group">
-                <Mail size={14} className="text-purple-600 shrink-0 group-hover:scale-110 transition-transform" />
-                <span className="tracking-widest">advisory@fipwealth.com</span>
+              <div className="flex gap-4">
+                <Mail size={14} className="text-[#6495ED]" />
+                <span>advisory@fipwealth.com</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* ================= DIVIDER ================= */}
-        <div className="h-px bg-gradient-to-r from-transparent via-purple-100 to-transparent mb-12" />
+        {/* DIVIDER */}
+        <div className="h-px bg-gradient-to-r from-transparent via-[#D6E4FF] to-transparent mb-12" />
 
-        {/* ================= BOTTOM BAR ================= */}
+        {/* BOTTOM */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 text-[10px] uppercase tracking-[0.3em] font-black text-slate-400">
-
-          <p className="text-center md:text-left">
-            © {year} FIP Consultancy — Finance | Investment | Property
-          </p>
-
-          <div className="flex items-center gap-10">
-            <span className="cursor-pointer hover:text-purple-600 transition-colors">
-              Privacy Policy
-            </span>
-            <span className="cursor-pointer hover:text-purple-600 transition-colors">
-              Disclaimer
-            </span>
+          <p>© {year} FIP Consultancy — Finance | Investment | Property</p>
+          <div className="flex gap-10">
+            <span className="hover:text-[#6495ED] cursor-pointer">Privacy Policy</span>
+            <span className="hover:text-[#6495ED] cursor-pointer">Disclaimer</span>
           </div>
         </div>
 
@@ -124,15 +110,12 @@ function FooterLink({ label, to }) {
     <li>
       <Link
         to={to}
-        className="flex items-center justify-between group text-slate-400 hover:text-purple-700 transition-colors"
+        className="flex items-center justify-between group text-slate-400 hover:text-[#2C4FA3] transition-colors"
       >
         <span className="uppercase tracking-[0.25em] text-[10px] font-black group-hover:translate-x-1 transition-transform">
           {label}
         </span>
-        <ArrowUpRight
-          size={14}
-          className="opacity-0 group-hover:opacity-100 text-purple-600 transition-all translate-y-1 group-hover:translate-y-0"
-        />
+        <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 text-[#6495ED]" />
       </Link>
     </li>
   );

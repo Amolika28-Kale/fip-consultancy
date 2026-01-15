@@ -43,21 +43,17 @@ export default function Contact() {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full bg-[#FAF9FF] text-slate-800 overflow-x-hidden pt-20 selection:bg-purple-100 selection:text-purple-900">
+    <div className="w-full bg-[#F6F9FF] text-slate-800 overflow-x-hidden pt-20 selection:bg-[#EAF1FF] selection:text-[#2C4FA3]">
 
       {/* ================= HERO ================= */}
-      <section className="relative bg-white border-b border-purple-50">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-50/50 to-transparent" />
+      <section className="relative bg-white border-b border-[#EAF1FF]">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#EAF1FF]/70 to-transparent" />
 
         <div className="relative max-w-7xl mx-auto px-6 py-32 text-center">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={stagger}
-          >
+          <motion.div initial="hidden" animate="visible" variants={stagger}>
             <motion.span
               variants={fadeUp}
-              className="inline-block mb-8 px-6 py-2 text-[11px] uppercase tracking-[0.35em] font-bold bg-purple-50 text-purple-600 rounded-full border border-purple-100"
+              className="inline-block mb-8 px-6 py-2 text-[11px] uppercase tracking-[0.35em] font-bold bg-[#EAF1FF] text-[#2C4FA3] rounded-full border border-[#D6E4FF]"
             >
               Professional Consultation
             </motion.span>
@@ -67,7 +63,7 @@ export default function Contact() {
               className="text-4xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-8"
             >
               Speak With a{" "}
-              <span className="text-purple-600">Financial Principal</span>
+              <span className="text-[#6495ED]">Financial Principal</span>
             </motion.h1>
 
             <motion.p
@@ -91,17 +87,16 @@ export default function Contact() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeScale}
-            className="relative bg-white rounded-[2.5rem] border border-purple-100 shadow-2xl shadow-purple-100/50 p-10 md:p-14"
+            className="relative bg-white rounded-[2.5rem] border border-[#D6E4FF] shadow-2xl shadow-[#EAF1FF] p-10 md:p-14"
           >
-            {/* Subtle inner glow */}
-            <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-tr from-purple-50 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-tr from-[#EAF1FF] to-transparent pointer-events-none" />
 
             <div className="relative">
               <div className="flex items-center gap-2 mb-10">
-                 <Lock size={14} className="text-purple-600" />
-                 <p className="text-xs font-bold uppercase tracking-[0.3em] text-purple-600">
-                   Secure Consultation Request
-                 </p>
+                <Lock size={14} className="text-[#6495ED]" />
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#6495ED]">
+                  Secure Consultation Request
+                </p>
               </div>
 
               <form className="space-y-8">
@@ -119,7 +114,7 @@ export default function Contact() {
                   <textarea
                     rows="4"
                     placeholder="Briefly describe your requirement..."
-                    className="w-full border border-purple-100 bg-purple-50/30 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-white text-sm resize-none transition-all"
+                    className="w-full border border-[#D6E4FF] bg-[#EAF1FF]/50 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#6495ED] focus:bg-white text-sm resize-none transition-all"
                   />
                 </div>
 
@@ -128,18 +123,18 @@ export default function Contact() {
                   whileTap={{ scale: 0.98 }}
                   type="button"
                   onClick={() => navigate("/payment")}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white py-5 rounded-2xl font-bold uppercase tracking-widest shadow-lg shadow-purple-200 transition-all flex items-center justify-center gap-3"
+                  className="w-full bg-[#6495ED] hover:bg-[#2C4FA3] text-white py-5 rounded-2xl font-bold uppercase tracking-widest shadow-lg shadow-[#EAF1FF] transition-all flex items-center justify-center gap-3"
                 >
                   Submit & Proceed — ₹499
                 </motion.button>
 
                 <div className="flex flex-wrap justify-center gap-6 opacity-60">
-                   <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                      <ShieldCheck size={12} /> Secure
-                   </div>
-                   <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                      <Lock size={12} /> Confidential
-                   </div>
+                  <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                    <ShieldCheck size={12} /> Secure
+                  </div>
+                  <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                    <Lock size={12} /> Confidential
+                  </div>
                 </div>
               </form>
             </div>
@@ -148,13 +143,7 @@ export default function Contact() {
           {/* ================= INFO ================= */}
           <div className="space-y-16 lg:pt-10">
 
-            {/* Contact Cards */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={stagger}
-            >
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
               <p className="text-xs font-bold uppercase tracking-[0.3em] text-slate-400 mb-8">
                 Contact Channels
               </p>
@@ -175,16 +164,15 @@ export default function Contact() {
               </div>
             </motion.div>
 
-            {/* Why FIP */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeUp}
-              className="bg-white p-10 md:p-12 rounded-[2.5rem] border border-purple-50 shadow-xl shadow-purple-50"
+              className="bg-white p-10 md:p-12 rounded-[2.5rem] border border-[#EAF1FF] shadow-xl shadow-[#EAF1FF]"
             >
               <h3 className="text-2xl font-black mb-10 text-slate-900 tracking-tight">
-                The FIP <span className="text-purple-600">Standard</span>
+                The FIP <span className="text-[#6495ED]">Standard</span>
               </h3>
 
               <ul className="space-y-6">
@@ -200,7 +188,7 @@ export default function Contact() {
       </section>
 
       {/* ================= FOOTER ================= */}
-      <footer className="py-12 bg-white border-t border-purple-50 text-center px-6">
+      <footer className="py-12 bg-white border-t border-[#EAF1FF] text-center px-6">
         <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">
           ₹499 Consultation Fee • SSL Encrypted • FIP Consultancy
         </p>
@@ -219,7 +207,7 @@ function FormInput({ label, placeholder }) {
       </label>
       <input
         placeholder={placeholder}
-        className="w-full border border-purple-100 bg-purple-50/30 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-white text-sm transition-all"
+        className="w-full border border-[#D6E4FF] bg-[#EAF1FF]/50 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#6495ED] focus:bg-white text-sm transition-all"
       />
     </div>
   );
@@ -230,9 +218,11 @@ function ContactIconCard({ icon, title, info, sub }) {
     <motion.div
       variants={fadeUp}
       whileHover={{ y: -5 }}
-      className="bg-white p-8 rounded-3xl border border-purple-50 shadow-sm hover:shadow-2xl hover:shadow-purple-100 transition-all group"
+      className="bg-white p-8 rounded-3xl border border-[#EAF1FF] shadow-sm hover:shadow-2xl hover:shadow-[#EAF1FF] transition-all group"
     >
-      <div className="text-purple-600 mb-4 p-3 bg-purple-50 w-fit rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-all">{icon}</div>
+      <div className="text-[#6495ED] mb-4 p-3 bg-[#EAF1FF] w-fit rounded-xl group-hover:bg-[#6495ED] group-hover:text-white transition-all">
+        {icon}
+      </div>
       <p className="text-[9px] font-bold uppercase tracking-widest text-slate-400 mb-1">
         {title}
       </p>
@@ -252,8 +242,12 @@ function WhyItem({ icon, text }) {
       variants={fadeUp}
       className="flex items-center gap-4 text-sm text-slate-600 font-bold group"
     >
-      <div className="text-purple-500 shrink-0 p-1.5 bg-purple-50 rounded-lg">{icon}</div>
-      <span className="group-hover:text-purple-700 transition-colors">{text}</span>
+      <div className="text-[#6495ED] shrink-0 p-1.5 bg-[#EAF1FF] rounded-lg">
+        {icon}
+      </div>
+      <span className="group-hover:text-[#2C4FA3] transition-colors">
+        {text}
+      </span>
     </motion.li>
   );
 }
