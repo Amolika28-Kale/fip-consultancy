@@ -3,317 +3,190 @@ import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
-  Building2, Search, Key, TrendingUp, ArrowUpRight,
-  ShieldCheck, UserCheck, GanttChartSquare, PhoneCall, CheckCircle2,
-  Quote
+  Building2, Search, TrendingUp, ArrowUpRight,
+  ShieldCheck, UserCheck, PhoneCall, CheckCircle2, Quote
 } from "lucide-react";
 
 /* ================= ANIMATIONS ================= */
-const containerStagger = {
+const container = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+  visible: { opacity: 1, transition: { staggerChildren: 0.12 } }
 };
 
-const itemReveal = {
-  hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
+const reveal = {
+  hidden: { opacity: 0, y: 30, filter: "blur(8px)" },
   visible: {
     opacity: 1,
     y: 0,
     filter: "blur(0)",
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
   }
-};
-
-const slideInLeft = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } }
-};
-
-const slideInRight = {
-  hidden: { opacity: 0, x: 50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } }
-};
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: "easeOut" } }
-};
-
-const bounceIn = {
-  hidden: { opacity: 0, scale: 0.3 },
-  visible: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 200, damping: 10 } }
 };
 
 export default function Property() {
   const navigate = useNavigate();
   const { scrollY } = useScroll();
-  const yParallax = useTransform(scrollY, [0, 1000], [0, 150]);
-  const rotateParallax = useTransform(scrollY, [0, 1000], [0, 10]);
+  const y = useTransform(scrollY, [0, 800], [0, 120]);
 
   return (
-    <div className="bg-[#F6F9FF] text-slate-900 overflow-x-hidden pt-20 font-['Poppins',sans-serif]">
+    <div className="bg-[#F6F9FF] text-slate-900 pt-20 overflow-x-hidden font-['Inter','Poppins',sans-serif]">
 
       {/* ================= HERO ================= */}
-      <section className="relative min-h-[90vh] flex items-center bg-white border-b border-[#EAF1FF] overflow-hidden">
-        <motion.div 
-          style={{ y: yParallax, rotate: rotateParallax }} 
-          className="absolute inset-0"
-        >
-          {/* <img
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab"
-            className="w-full h-full object-cover opacity-[0.06] scale-110"
-          /> */}
-        </motion.div>
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-white border-b border-[#EAF1FF]">
+        <motion.div style={{ y }} className="absolute inset-0" />
 
-        {/* Enhanced Glows */}
-        <motion.div 
-          animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.3, 0.1] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-10 right-10 w-64 h-64 bg-[#6495ED]/20 blur-3xl rounded-full"
-        />
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.25, 0.1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-10 left-10 w-48 h-48 bg-[#6495ED]/15 blur-2xl rounded-full"
-        />
+        {/* Ambient glows */}
+        <div className="absolute top-20 right-10 w-72 h-72 bg-blue-500/10 blur-3xl rounded-full" />
+        <div className="absolute bottom-20 left-10 w-56 h-56 bg-blue-500/10 blur-2xl rounded-full" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div variants={containerStagger} initial="hidden" animate="visible">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-14 items-center">
+          <motion.div variants={container} initial="hidden" animate="visible">
 
-            <motion.div 
-              variants={itemReveal} 
-              className="mb-8"
-              whileHover={{ scale: 1.05 }}
+            <motion.span
+              variants={reveal}
+              className="inline-flex items-center gap-3 px-6 py-3 bg-[#EAF1FF] border border-[#D6E4FF] rounded-full text-[11px] uppercase tracking-[0.35em] font-bold text-blue-600"
             >
-              <span className="inline-flex items-center gap-3 px-6 py-3 text-[10px] font-black tracking-[0.4em] uppercase text-[#6495ED] bg-[#EAF1FF] border border-[#D6E4FF] rounded-full shadow-sm">
-                <Building2 size={14} /> Asset Stewardship
-              </span>
-            </motion.div>
+              <Building2 size={14} />
+              Asset Stewardship
+            </motion.span>
 
-            <motion.h1 
-              variants={itemReveal} 
-              className="text-6xl md:text-[9rem] font-black leading-[0.85] tracking-tighter"
+            <motion.h1
+              variants={reveal}
+              className="mt-10 text-[clamp(3rem,8vw,9rem)] leading-[0.9] font-extrabold tracking-tight"
             >
-              Profitable <br />
-              <span className="text-[#6495ED]">Portfolios.</span>
+              Profitable
+              <br />
+              <span className="text-blue-600">Portfolios</span>
             </motion.h1>
 
-            <motion.p 
-              variants={itemReveal} 
-              className="mt-10 max-w-3xl text-xl text-slate-500 font-medium"
+            <motion.p
+              variants={reveal}
+              className="mt-8 max-w-xl text-base md:text-lg font-medium text-slate-600"
             >
-              Lifecycle-driven real estate strategies designed for
-              <span className="text-[#2C4FA3] font-bold"> maximum yield</span> and secure exits.
+              Lifecycle-driven real estate strategies engineered for
+              <span className="font-semibold text-slate-900"> predictable yield </span>
+              and capital protection.
             </motion.p>
 
-            <motion.div 
-              variants={itemReveal} 
-              className="mt-14"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <motion.div
+              variants={reveal}
+              className="mt-12 flex flex-col sm:flex-row gap-5"
             >
               <button
                 onClick={() => navigate("/contact")}
-                className="group bg-slate-900 hover:bg-[#6495ED] text-white px-12 py-6 rounded-2xl font-black tracking-widest flex items-center gap-4 transition-all shadow-xl"
+                className="bg-slate-900 hover:bg-blue-600 text-white px-10 py-5 rounded-2xl font-bold tracking-wide flex items-center justify-center gap-3 transition-all shadow-xl"
               >
                 CONSULT EXPERT
-                <ArrowUpRight size={20} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+                <ArrowUpRight size={18} />
               </button>
             </motion.div>
           </motion.div>
-
-          {/* New Hero Visual Element */}
-          {/* <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={slideInRight}
-            className="hidden lg:block"
-          >
-            <motion.div
-              whileHover={{ rotate: 5, scale: 1.05 }}
-              className="bg-[#EAF1FF] p-12 rounded-[4rem] shadow-2xl"
-            >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="w-32 h-32 mx-auto mb-8 bg-[#6495ED] rounded-full flex items-center justify-center"
-              >
-                <Building2 size={48} className="text-white" />
-              </motion.div>
-              <h3 className="text-2xl font-black text-center mb-4">Strategic Insights</h3>
-              <p className="text-slate-500 text-center">Data-driven decisions for optimal returns.</p>
-            </motion.div>
-          </motion.div> */}
         </div>
       </section>
 
       {/* ================= SERVICES ================= */}
-      <section className="py-32 bg-white px-6">
+      <section className="py-28 bg-white px-6">
         <motion.div
-          variants={containerStagger}
+          variants={container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           className="max-w-7xl mx-auto"
         >
           <motion.h2
-            variants={itemReveal}
-            className="text-5xl md:text-7xl font-black tracking-tighter text-center mb-16"
+            variants={reveal}
+            className="text-center text-[clamp(2.25rem,5vw,4.5rem)] font-extrabold tracking-tight mb-20"
           >
-            Our <span className="text-[#6495ED]">Services</span>
+            Our <span className="text-blue-600">Services</span>
           </motion.h2>
+
           <div className="grid md:grid-cols-3 gap-8">
-            <ServiceCard
-              index="01"
-              icon={<Search size={28} />}
+            <Service
+              icon={<Search />}
               title="Strategic Acquisition"
-              desc="Precision-based acquisition frameworks for residential & commercial assets."
-              items={["Market Entry", "Valuation Logic", "Risk Filters"]}
+              desc="Market-driven sourcing with valuation discipline."
+              items={["Market Screening", "Risk Filters", "Entry Logic"]}
             />
-
-            <ServiceCard
-              index="02"
-              icon={<UserCheck size={28} />}
+            <Service
+              icon={<UserCheck />}
               title="Asset Management"
-              desc="Operational oversight engineered for stable rental and capital safety."
-              items={["Tenant Control", "Yield Optimization", "Governance"]}
-              isFeatured
+              desc="Operational control for stable rental yield."
+              items={["Tenant Oversight", "Yield Control", "Compliance"]}
+              featured
             />
-
-            <ServiceCard
-              index="03"
-              icon={<TrendingUp size={28} />}
+            <Service
+              icon={<TrendingUp />}
               title="Capital Growth"
-              desc="Long-cycle appreciation models driven by data and zoning intelligence."
-              items={["Exit Timing", "Demand Zones", "Capital Scaling"]}
+              desc="Long-cycle appreciation via demand mapping."
+              items={["Exit Timing", "Zoning Insight", "Scaling"]}
             />
           </div>
         </motion.div>
       </section>
 
-      {/* ================= GROWTH STAGES ================= */}
-      <section className="py-36 bg-[#F6F9FF] border-y border-[#EAF1FF] px-6 text-center">
+      {/* ================= GROWTH ================= */}
+      <section className="py-32 bg-[#F6F9FF] border-y border-[#EAF1FF] px-6 text-center">
         <motion.h2
+          variants={reveal}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={itemReveal}
-          className="text-5xl md:text-8xl font-black tracking-tighter mb-24"
+          className="text-[clamp(2.25rem,6vw,5rem)] font-extrabold tracking-tight mb-24"
         >
-          Growth <span className="text-[#6495ED]">Trajectory.</span>
+          Growth <span className="text-blue-600">Trajectory</span>
         </motion.h2>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerStagger}
-          className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto"
-        >
-          <ExitCard stage="Stage 01" roi="15–20%" desc="Acquisition & Setup" />
-          <ExitCard stage="Stage 02" roi="20–30%" desc="Market Appreciation" />
-          <ExitCard stage="Stage 03" roi="30–40%" desc="Optimized Exit" />
-        </motion.div>
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <Exit stage="Stage 01" roi="15–20%" desc="Acquisition & Setup" />
+          <Exit stage="Stage 02" roi="20–30%" desc="Market Appreciation" />
+          <Exit stage="Stage 03" roi="30–40%" desc="Optimized Exit" />
+        </div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={bounceIn}
-          className="mt-20 inline-flex items-center gap-6 bg-white border border-[#EAF1FF] px-10 py-6 rounded-3xl shadow-lg"
-        >
-          <ShieldCheck size={32} className="text-[#6495ED]" />
-          <p className="font-bold text-slate-600">
-            100% Legal Compliance & Asset-Backed Protection
+        <div className="mt-20 inline-flex items-center gap-5 bg-white border border-[#EAF1FF] px-10 py-6 rounded-3xl shadow">
+          <ShieldCheck className="text-blue-600" />
+          <p className="font-semibold text-slate-600 text-sm">
+            Fully compliant, asset-backed investment structure
           </p>
-        </motion.div>
+        </div>
       </section>
 
-      {/* ================= CLIENT SUCCESS STORIES ================= */}
-      <section className="py-32 bg-white px-6">
+      {/* ================= TESTIMONIALS ================= */}
+      <section className="py-28 bg-white px-6">
         <motion.div
+          variants={container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={containerStagger}
           className="max-w-7xl mx-auto text-center"
         >
           <motion.h2
-            variants={itemReveal}
-            className="text-5xl md:text-7xl font-black tracking-tighter mb-16"
+            variants={reveal}
+            className="text-[clamp(2.25rem,5vw,4.5rem)] font-extrabold tracking-tight mb-20"
           >
-            Client <span className="text-[#6495ED]">Success</span> Stories
+            Client <span className="text-blue-600">Success</span>
           </motion.h2>
+
           <div className="grid md:grid-cols-2 gap-8">
-            <motion.div
-              variants={slideInLeft}
-              whileHover={{ scale: 1.02, y: -5 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="bg-[#F6F9FF] p-12 rounded-[3rem] shadow-lg border border-[#EAF1FF] relative"
-            >
-              <motion.div
-                className="absolute -top-4 -left-4 w-12 h-12 bg-[#6495ED] rounded-full flex items-center justify-center"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Quote size={20} className="text-white" />
-              </motion.div>
-              <p className="text-lg italic mb-6 text-slate-700">"Exceptional returns and seamless management. FIP transformed our investment strategy."</p>
-              <p className="font-black text-[#6495ED]">- John Doe, Investor</p>
-            </motion.div>
-            <motion.div
-              variants={slideInRight}
-              whileHover={{ scale: 1.02, y: -5 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="bg-[#F6F9FF] p-12 rounded-[3rem] shadow-lg border border-[#EAF1FF] relative"
-            >
-              <motion.div
-                className="absolute -top-4 -left-4 w-12 h-12 bg-[#6495ED] rounded-full flex items-center justify-center"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Quote size={20} className="text-white" />
-              </motion.div>
-              <p className="text-lg italic mb-6 text-slate-700">"Professional and reliable property solutions. Highly recommend for asset growth."</p>
-              <p className="font-black text-[#6495ED]">- Jane Smith, Entrepreneur</p>
-            </motion.div>
+            <Testimonial text="Exceptional clarity and disciplined execution." />
+            <Testimonial text="Reliable governance and long-term focus." />
           </div>
         </motion.div>
       </section>
 
-      {/* ================= FINAL CTA ================= */}
-      <section className="py-36 bg-slate-950 text-white px-6 relative overflow-hidden">
-        <motion.div 
-          animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#6495ED40,_transparent)]"
-        />
+      {/* ================= CTA ================= */}
+      <section className="py-32 bg-slate-950 text-white px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-[clamp(2.5rem,6vw,5rem)] font-extrabold tracking-tight mb-14">
+            The FIP Ecosystem
+          </h2>
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center">
-          <motion.h2
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={itemReveal}
-            className="text-6xl md:text-9xl font-black tracking-tighter mb-16"
-          >
-            The FIP <br />
-            <span className="text-[#87AFFF] italic font-light">Ecosystem.</span>
-          </motion.h2>
-
-          <motion.button
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={scaleIn}
-            whileHover={{ scale: 1.05, backgroundColor: "#ffffff", color: "#0f172a" }}
-            whileTap={{ scale: 0.95 }}
+          <button
             onClick={() => navigate("/contact")}
-            className="bg-[#6495ED] hover:bg-white hover:text-slate-900 text-white px-14 py-7 rounded-2xl font-black tracking-widest flex items-center gap-4 mx-auto transition-all shadow-2xl"
+            className="bg-blue-600 hover:bg-white hover:text-slate-900 text-white px-14 py-6 rounded-2xl font-bold tracking-wide flex items-center gap-4 mx-auto transition-all shadow-2xl"
           >
             CONSULT ADVISOR
-            <PhoneCall size={20} />
-          </motion.button>
+            <PhoneCall size={18} />
+          </button>
         </div>
       </section>
     </div>
@@ -322,86 +195,61 @@ export default function Property() {
 
 /* ================= COMPONENTS ================= */
 
-function ServiceCard({ index, icon, title, desc, items, isFeatured }) {
+function Service({ icon, title, desc, items, featured }) {
   return (
     <motion.div
-      variants={itemReveal}
-      whileHover={{ y: -10, scale: 1.02, rotateY: 5 }}
-      transition={{ type: "spring", stiffness: 300 }}
-      className={`p-12 rounded-[3rem] border relative transition-all overflow-hidden ${
-        isFeatured
+      variants={reveal}
+      className={`p-12 rounded-[3rem] border transition-all ${
+        featured
           ? "bg-slate-900 text-white border-slate-800 shadow-2xl"
           : "bg-white border-[#EAF1FF] hover:shadow-xl"
       }`}
     >
-      <motion.div 
-        className="absolute -top-6 -right-6 text-[8rem] font-black text-[#6495ED]/10"
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-      >
-        {index}
-      </motion.div>
-
-      <motion.div 
-        className={`mb-8 p-4 rounded-2xl w-fit ${
-          isFeatured ? "bg-white/10 text-white" : "bg-[#EAF1FF] text-[#6495ED]"
-        }`}
-        whileHover={{ rotate: 360 }}
-        transition={{ duration: 0.6 }}
-      >
+      <div className={`mb-8 p-4 rounded-2xl w-fit ${featured ? "bg-white/10" : "bg-[#EAF1FF] text-blue-600"}`}>
         {icon}
-      </motion.div>
+      </div>
 
-      <h3 className="text-3xl font-black mb-4 uppercase">{title}</h3>
-      <p className={`mb-10 font-medium ${isFeatured ? "text-slate-400" : "text-slate-500"}`}>
+      <h3 className="text-xl md:text-2xl font-bold mb-4 uppercase">{title}</h3>
+      <p className={`mb-8 text-sm md:text-base ${featured ? "text-slate-400" : "text-slate-500"}`}>
         {desc}
       </p>
 
-      <motion.div 
-        className="space-y-4"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerStagger}
-      >
+      <div className="space-y-3">
         {items.map((i, idx) => (
-          <motion.div 
-            key={idx} 
-            variants={scaleIn}
-            className="flex items-center gap-3 font-black text-xs uppercase tracking-widest"
-          >
-            <CheckCircle2 size={16} className="text-[#6495ED]" />
-            <span>{i}</span>
-          </motion.div>
+          <div key={idx} className="flex items-center gap-3 text-[11px] uppercase tracking-widest font-bold">
+            <CheckCircle2 size={14} className="text-blue-600" />
+            {i}
+          </div>
         ))}
-      </motion.div>
+      </div>
     </motion.div>
   );
 }
 
-function ExitCard({ stage, roi, desc }) {
+function Exit({ stage, roi, desc }) {
   return (
     <motion.div
-      variants={itemReveal}
-      whileHover={{ y: -8, scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 300 }}
-      className="bg-white border border-[#EAF1FF] p-12 rounded-[3rem] shadow-sm hover:shadow-xl transition-all"
+      variants={reveal}
+      className="bg-white border border-[#EAF1FF] p-12 rounded-[3rem] shadow hover:shadow-xl"
     >
-      <p className="text-xs uppercase tracking-[0.4em] font-black text-[#6495ED] mb-6">
+      <p className="text-[11px] uppercase tracking-[0.35em] font-bold text-blue-600 mb-6">
         {stage}
       </p>
-      <motion.p 
-        className="text-6xl font-black tracking-tighter mb-4"
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        transition={{ type: "spring", stiffness: 200 }}
-      >
-        {roi}
-      </motion.p>
-      <p className="text-slate-500 font-black uppercase text-xs tracking-widest">
-        {desc}
-      </p>
+      <p className="text-5xl font-extrabold tracking-tight mb-4">{roi}</p>
+      <p className="text-slate-500 text-xs uppercase tracking-widest font-bold">{desc}</p>
+    </motion.div>
+  );
+}
+
+function Testimonial({ text }) {
+  return (
+    <motion.div
+      variants={reveal}
+      className="bg-[#F6F9FF] p-12 rounded-[3rem] border border-[#EAF1FF] shadow relative"
+    >
+      <Quote className="absolute -top-5 -left-5 text-white bg-blue-600 w-10 h-10 p-2 rounded-full" />
+      <p className="italic text-slate-700 mb-6">{text}</p>
+      <p className="font-bold text-blue-600">Verified Investor</p>
     </motion.div>
   );
 }

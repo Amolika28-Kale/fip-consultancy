@@ -52,6 +52,7 @@ export default function Payment() {
   };
 
   return (
+    <>
     <div className="min-h-screen bg-[#F6F9FF] text-slate-800 flex items-center justify-center px-6 selection:bg-[#EAF1FF] selection:text-[#2C4FA3]">
       <motion.div
         initial="hidden"
@@ -198,5 +199,6 @@ export default function Payment() {
         </motion.div>
       </motion.div>
     </div>
+    </>
   );
 }

@@ -19,124 +19,108 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-[100] transition-all duration-700 ease-in-out ${
-        scrolled ? "py-4" : "py-8"
+      className={`fixed top-0 w-full z-[100] transition-all duration-500 ${
+        scrolled ? "py-4" : "py-7"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6">
         <nav
-          className={`relative flex items-center justify-between px-8 py-4 transition-all duration-500 rounded-[2rem] ${
+          className={`flex items-center justify-between px-8 py-4 rounded-3xl transition-all duration-500 ${
             scrolled
-              ? "bg-white/70 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.05)]"
+              ? "bg-white/80 backdrop-blur-xl border border-slate-200 shadow-lg"
               : "bg-transparent"
           }`}
         >
-          {/* BRANDING */}
-          <NavLink to="/" className="relative z-[110] transition-transform duration-500 hover:scale-105">
-            <img 
-              src={logo} 
-              alt="FIP" 
-              className={`transition-all duration-500 ${scrolled ? "h-7" : "h-9"}`} 
+          {/* LOGO */}
+          <NavLink to="/" className="z-20">
+            <img
+              src={logo}
+              alt="FIP Consultancy"
+              className={`transition-all duration-300 ${
+                scrolled ? "h-7" : "h-9"
+              }`}
             />
           </NavLink>
 
-          {/* DESKTOP LINKS */}
-          <div className="hidden md:flex items-center gap-10">
+          {/* DESKTOP NAV */}
+          <div className="hidden md:flex items-center gap-12">
             {navItems.map((item) => (
               <NavLink
                 key={item}
                 to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                className={({ isActive }) => `
-                  relative text-[10px] uppercase tracking-[0.3em] font-black transition-all duration-300
-                  ${isActive ? "text-blue-600" : "text-slate-500 hover:text-blue-600"}
-                  group
-                `}
+                className={({ isActive }) =>
+                  `relative text-[11px] uppercase tracking-[0.3em] font-bold transition-colors ${
+                    isActive
+                      ? "text-blue-700"
+                      : "text-slate-500 hover:text-blue-700"
+                  }`
+                }
               >
                 {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100" />
               </NavLink>
             ))}
           </div>
 
-          {/* ACTION BUTTON */}
+          {/* CTA */}
           <div className="hidden md:block">
             <NavLink
               to="/contact"
-              className={`
-                group flex items-center gap-3 px-8 py-3 rounded-xl
-                text-[9px] uppercase tracking-[0.25em] font-black transition-all duration-500
-                ${scrolled 
-                  ? "bg-[#1E293B] text-white hover:bg-blue-600 shadow-lg" 
-                  : "bg-white text-[#1E293B] hover:bg-blue-600 hover:text-white shadow-md"
-                }
-              `}
+              className={`flex items-center gap-3 px-7 py-3 rounded-xl text-[10px] uppercase tracking-[0.3em] font-bold transition-all ${
+                scrolled
+                  ? "bg-[#0B2C6F] text-white hover:bg-blue-700"
+                  : "bg-white text-[#0B2C6F] hover:bg-blue-700 hover:text-white"
+              }`}
             >
-              Consultancy <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              Consultancy
+              <ArrowRight className="w-4 h-4" />
             </NavLink>
           </div>
 
           {/* MOBILE TOGGLE */}
-          <button 
-            className="md:hidden relative z-[110] p-2" 
+          <button
+            className="md:hidden z-20"
             onClick={() => setOpen(!open)}
           >
-            {open ? (
-              <X size={24} className="text-white transition-colors" />
-            ) : (
-              <div className="space-y-1.5">
-                <div className={`w-6 h-0.5 transition-all ${scrolled ? "bg-slate-900" : "bg-slate-800"}`} />
-                <div className={`w-4 h-0.5 transition-all ${scrolled ? "bg-slate-900" : "bg-slate-800"}`} />
-              </div>
-            )}
+            {open ? <X size={24} /> : <Menu size={24} />}
           </button>
         </nav>
       </div>
 
-      {/* FULL-SCREEN MOBILE OVERLAY */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 bg-slate-900 z-[100] md:hidden flex flex-col justify-center p-12"
+            className="fixed inset-0 bg-[#0B2C6F] md:hidden z-[90] flex flex-col justify-center px-10"
           >
-            {/* Background Decorative Element */}
-            <div className="absolute top-[-10%] right-[-10%] w-96 h-96 bg-blue-600/20 blur-[100px] rounded-full" />
-
-            <div className="relative z-10 flex flex-col gap-8">
+            <div className="space-y-8">
               {navItems.map((item, i) => (
                 <motion.div
                   key={item}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: i * 0.08 }}
                 >
                   <NavLink
                     to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
                     onClick={() => setOpen(false)}
-                    className="text-5xl font-black text-white hover:text-blue-400 transition-colors flex items-center justify-between group"
+                    className="flex items-center justify-between text-white text-4xl font-black uppercase"
                   >
-                    <span className="tracking-tighter uppercase">{item}</span>
-                    <ChevronRight size={32} className="opacity-0 group-hover:opacity-100 transition-all text-blue-500" />
+                    {item}
+                    <ChevronRight />
                   </NavLink>
                 </motion.div>
               ))}
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-12"
+              <NavLink
+                to="/contact"
+                onClick={() => setOpen(false)}
+                className="block mt-12 bg-white text-[#0B2C6F] py-5 rounded-2xl text-center text-xs uppercase tracking-[0.3em] font-bold"
               >
-                <NavLink
-                  to="/contact"
-                  onClick={() => setOpen(false)}
-                  className="block w-full bg-blue-600 text-white py-6 rounded-2xl text-center font-black uppercase tracking-[0.3em] text-xs shadow-2xl"
-                >
-                  Start Inquiry
-                </NavLink>
-              </motion.div>
+                Start Consultation
+              </NavLink>
             </div>
           </motion.div>
         )}
