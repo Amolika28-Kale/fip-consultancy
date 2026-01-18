@@ -11,7 +11,9 @@ import {
   Building2,
   PieChart,
   Timer,
-  PhoneCall
+  PhoneCall,
+  Activity,
+  ChevronRight
 } from "lucide-react";
 
 /* ================= ANIMATIONS ================= */
@@ -19,227 +21,256 @@ const containerStagger = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.12, delayChildren: 0.1 }
   }
 };
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 28, filter: "blur(8px)" },
+const perspectiveReveal = {
+  hidden: { opacity: 0, y: 40, rotateX: -10, filter: "blur(10px)" },
   visible: {
     opacity: 1,
     y: 0,
+    rotateX: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] }
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
   }
 };
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.45 } }
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
 };
 
 export default function Investments() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-paper text-slate-900 overflow-x-hidden pt-20 md:pt-28 font-sans ">
+    <div className="bg-[#F8FAFC] text-slate-900 overflow-x-hidden selection:bg-[#6495ED] selection:text-white">
 
-      {/* ================= HERO ================= */}
-      <section className="relative min-h-[75vh] md:min-h-[90vh] flex items-center bg-white border-b border-[#E3ECFF] overflow-hidden px-6">
-
-        {/* Ambient background */}
-        <motion.div
-          aria-hidden
-          animate={{ scale: [1, 1.08, 1], opacity: [0.5, 0.85, 0.5] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-32 -left-32 w-[420px] h-[420px] md:w-[900px] md:h-[900px] bg-[#6495ED]/20 blur-[160px] rounded-full"
-        />
-        <motion.div
-          aria-hidden
-          animate={{ scale: [1, 1.05, 1], opacity: [0.45, 0.75, 0.45] }}
-          transition={{ duration: 26, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-          className="absolute bottom-[-160px] right-[-120px] w-[360px] h-[360px] md:w-[820px] md:h-[820px] bg-[#EEF4FF] blur-[180px] rounded-full"
-        />
-
-        <div className="relative z-10 max-w-7xl mx-auto w-full text-center">
-          <motion.div variants={containerStagger} initial="hidden" animate="visible">
-
-            {/* Label */}
-            <motion.div variants={fadeUp} className="mb-10 flex justify-center">
-              <span className="inline-flex items-center gap-3 px-7 py-3 border border-[#E3ECFF] text-[#6495ED] text-[10px] uppercase tracking-[0.45em] font-black bg-[#F2F6FF] rounded-full">
-                <ShieldCheck size={14} />
-                Strategic Alpha
-              </span>
+      {/* ================= HERO (WEALTH DASHBOARD STYLE) ================= */}
+      <section className="relative min-h-screen flex items-center pt-24 px-6 overflow-hidden">
+        {/* Abstract Background Grid */}
+        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:40px_40px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30" />
+        
+        <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-16 items-center">
+          <motion.div 
+            variants={containerStagger} 
+            initial="hidden" 
+            animate="visible"
+            className="lg:col-span-7"
+          >
+            <motion.div variants={perspectiveReveal} className="flex items-center gap-3 mb-8">
+              <span className="w-12 h-[1px] bg-[#6495ED]" />
+              <span className="text-[#6495ED] text-[10px] uppercase tracking-[0.5em] font-black">Strategic Alpha Architecture</span>
             </motion.div>
 
-            {/* Headline */}
-            <motion.h1
-              variants={fadeUp}
-              className="font-black tracking-tight leading-[0.92] mb-10 text-[clamp(2.8rem,8vw,6.8rem)]"
+            <motion.h1 
+              variants={perspectiveReveal}
+              className="font-black tracking-tighter leading-[0.85] mb-10 text-[clamp(3.5rem,9vw,7.5rem)] text-slate-950"
             >
               Wealth <br />
-              <span className="text-[#6495ED]">Architecture.</span>
+              <span className="text-[#6495ED]">Engineered.</span>
             </motion.h1>
 
-            {/* Subtext */}
-            <motion.p
-              variants={fadeUp}
-              className="max-w-3xl mx-auto text-[15px] sm:text-[17px] md:text-[19px] text-slate-500 leading-relaxed font-medium px-4"
+            <motion.p 
+              variants={perspectiveReveal}
+              className="max-w-xl text-slate-500 font-medium leading-relaxed text-lg md:text-xl mb-12"
             >
-              Curated, high-yield opportunities engineered for{" "}
-              <span className="text-[#3B6FD8] font-bold">
-                capital preservation
-              </span>{" "}
-              and disciplined market participation.
+              Disciplined capital preservation meets institutional-grade yield. 
+              We don't just find opportunities; we architect them.
             </motion.p>
 
-            {/* CTA */}
-            <motion.div variants={fadeUp} className="mt-16 flex justify-center">
+            <motion.div variants={perspectiveReveal} className="flex flex-wrap gap-6">
               <button
                 onClick={() => navigate("/contact")}
-                className="group bg-slate-950 text-white px-12 py-6 rounded-2xl font-black tracking-[0.25em] text-xs sm:text-sm hover:bg-[#6495ED] transition-all shadow-2xl"
+                className="bg-slate-950 text-white px-10 py-5 rounded-2xl font-black tracking-widest text-xs hover:bg-[#6495ED] transition-all shadow-2xl flex items-center gap-4"
               >
-                <span className="flex items-center gap-4">
-                  START INVESTING
-                  <ArrowUpRight className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </span>
+                OPEN PORTFOLIO <ArrowUpRight size={18} />
               </button>
+              <div className="flex items-center gap-4 px-6 border-l border-slate-200">
+                <Activity className="text-[#6495ED]" />
+                <div className="text-left">
+                  <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">Current Benchmarks</div>
+                  <div className="text-sm font-black">15.5% — 40.0% PA</div>
+                </div>
+              </div>
             </motion.div>
+          </motion.div>
+
+          {/* Floating Asset Allocation Visual */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="lg:col-span-5 relative hidden lg:block"
+          >
+            <div className="bg-white p-8 rounded-[3rem] shadow-2xl border border-slate-100 relative z-20">
+               <div className="flex items-center justify-between mb-8">
+                  <h4 className="font-black text-slate-400 text-xs uppercase tracking-widest">Global Balanced Fund</h4>
+                  <PieChart className="text-[#6495ED]" size={20} />
+               </div>
+               
+               {/* Allocation Diagram */}
+               
+
+               <div className="space-y-6 mt-8">
+                  <AllocationRow label="Real Estate" value="45%" color="bg-[#6495ED]" />
+                  <AllocationRow label="Private Equity" value="30%" color="bg-slate-900" />
+                  <AllocationRow label="Structured Debt" value="25%" color="bg-slate-200" />
+               </div>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* ================= WHY INVEST ================= */}
-      <section className="py-24 md:py-32 bg-white px-6">
-        <motion.div
-          variants={containerStagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8"
-        >
-          <WhyCard index="01" icon={<ShieldCheck />} title="Asset Backed" desc="Fully collateralized against registered A-grade properties." />
-          <WhyCard index="02" icon={<TrendingUp />} title="Yield Focus" desc="Targeting disciplined annualized benchmarks." />
-          <WhyCard index="03" icon={<GanttChartSquare />} title="Governance" desc="Quarterly audits & institutional controls." />
-        </motion.div>
+      {/* ================= RISK-REWARD MATRIX ================= */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="bg-slate-50 rounded-[3rem] p-10 md:p-16 border border-slate-100">
+            <h3 className="text-2xl font-black mb-8 tracking-tight">Alpha Strategy Matrix</h3>
+            <p className="text-slate-500 mb-12 max-w-2xl font-medium">Visualization of our risk-adjusted return spectrum across various maturity horizons.</p>
+            
+            
+          </div>
+        </div>
       </section>
 
-      {/* ================= INVESTMENT GRID ================= */}
-      <section className="py-24 md:py-32 bg-[#F5F8FF] px-6">
-        <motion.div
-          variants={containerStagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8"
-        >
-          <InvestmentCard icon={<Timer />} rate="20–25% PA" title="Short-Term Alpha" subtitle="Rapid capital velocity." data={{ tenure: "6–12 Months", asset: "Liquid Property", risk: "Moderate" }} />
-          <InvestmentCard icon={<Building2 />} rate="30–40% PA" title="Land Appreciation" subtitle="Strategic growth zones." data={{ tenure: "3 Years", asset: "Direct Land", risk: "Strategic" }} />
-          <InvestmentCard icon={<BarChart3 />} rate="10% PA" title="Passive Rental" subtitle="Predictable income." data={{ tenure: "Monthly", asset: "Commercial", risk: "Low" }} />
-          <InvestmentCard icon={<PieChart />} rate="15–20% PA" title="Equity Backed" subtitle="Business participation." data={{ tenure: "Variable", asset: "Equity", risk: "Balanced" }} />
-        </motion.div>
+      {/* ================= INVESTMENT GRID (BENTO STYLE) ================= */}
+      <section className="py-32 bg-slate-50 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-20">
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">Investment <span className="text-[#6495ED]">Tiers</span></h2>
+            <p className="text-slate-400 font-bold tracking-[0.2em] uppercase text-xs">Curated Asset Classes</p>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-6">
+            <BentoInvestment 
+              span="lg:col-span-8" 
+              icon={<Building2 />} 
+              rate="30–40% PA" 
+              title="Strategic Land Appreciation"
+              desc="Direct equity into high-growth developmental zones with 36-month horizons."
+              tags={["3 Years", "Direct Land", "High Alpha"]}
+              dark
+            />
+            <BentoInvestment 
+              span="lg:col-span-4" 
+              icon={<Timer />} 
+              rate="20–25% PA" 
+              title="Short-Term Alpha"
+              desc="Rapid velocity liquidity backed by property."
+              tags={["6-12 Mo", "Property"]}
+            />
+            <BentoInvestment 
+              span="lg:col-span-5" 
+              icon={<BarChart3 />} 
+              rate="10% PA" 
+              title="Passive Rental Income"
+              desc="Predictable monthly yield from commercial portfolios."
+              tags={["Monthly", "Low Risk"]}
+            />
+            <BentoInvestment 
+              span="lg:col-span-7" 
+              icon={<PieChart />} 
+              rate="15–20% PA" 
+              title="Venture Participation"
+              desc="Equity involvement in pre-vetted, scalable business ecosystems."
+              tags={["Variable", "Business Equity"]}
+              color="bg-[#EEF4FF]"
+            />
+          </div>
+        </div>
       </section>
 
-      {/* ================= FINAL CTA ================= */}
-      <section className="py-28 px-6">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.97, y: 40 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-6xl mx-auto bg-slate-950 rounded-[4rem] p-16 md:p-28 text-center shadow-2xl"
+      {/* ================= FINAL CALL ================= */}
+      <section className="py-40 px-6">
+        <motion.div 
+          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          className="max-w-5xl mx-auto bg-slate-950 rounded-[4rem] p-16 md:p-32 text-center text-white relative overflow-hidden shadow-3xl"
         >
-          <motion.h2
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="font-black tracking-tight text-[clamp(2rem,6vw,4.5rem)] text-white mb-14"
-          >
-            Invest with <span className="text-[#6495ED]">Authority.</span>
-          </motion.h2>
-
-          <motion.button
-            variants={scaleIn}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+          <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-12">
+            Secure Your <br /><span className="text-[#6495ED]">Legacy.</span>
+          </h2>
+          <button 
             onClick={() => navigate("/contact")}
-            className="bg-[#6495ED] hover:bg-white hover:text-slate-900 transition-all px-14 py-7 rounded-2xl font-black tracking-[0.25em] shadow-xl text-xs sm:text-sm flex items-center justify-center gap-4 mx-auto"
+            className="group px-14 py-7 bg-[#6495ED] rounded-2xl font-black tracking-[0.3em] text-xs hover:bg-white hover:text-slate-900 transition-all flex items-center gap-4 mx-auto"
           >
             <PhoneCall size={18} />
-            TALK TO AN ADVISOR
-          </motion.button>
+            TALK TO AN ARCHITECT
+            <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          </button>
         </motion.div>
       </section>
     </div>
   );
 }
 
-/* ================= COMPONENTS ================= */
+/* ================= SUB COMPONENTS ================= */
 
-function WhyCard({ index, title, desc, icon }) {
+function AllocationRow({ label, value, color }) {
   return (
-    <motion.div
-      variants={fadeUp}
-      className="bg-white border border-[#E3ECFF] p-12 text-center rounded-[3rem] hover:shadow-2xl transition-all relative"
-    >
-      <div className="absolute top-6 right-6 text-[#6495ED1A] font-black text-6xl">
-        {index}
+    <div className="space-y-2">
+      <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
+        <span>{label}</span>
+        <span className="text-[#6495ED]">{value}</span>
       </div>
-      <div className="mb-8 flex justify-center text-[#6495ED] p-5 bg-[#EEF4FF] w-fit mx-auto rounded-3xl">
-        {icon}
+      <div className="h-1.5 w-full bg-slate-50 rounded-full overflow-hidden">
+        <motion.div 
+          initial={{ width: 0 }}
+          animate={{ width: value }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+          className={`h-full ${color}`} 
+        />
       </div>
-      <h3 className="font-black text-xl mb-4">{title}</h3>
-      <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
+    </div>
+  );
+}
+
+function Pillar({ icon, title, desc }) {
+  return (
+    <motion.div variants={fadeInUp} className="group">
+      <div className="w-16 h-16 bg-[#EEF4FF] text-[#6495ED] rounded-2xl flex items-center justify-center mb-8 group-hover:bg-[#6495ED] group-hover:text-white transition-all duration-300">
+        {React.cloneElement(icon, { size: 28 })}
+      </div>
+      <h3 className="text-2xl font-black mb-4 tracking-tight">{title}</h3>
+      <p className="text-slate-500 font-medium leading-relaxed text-sm">{desc}</p>
     </motion.div>
   );
 }
 
-function InvestmentCard({ rate, title, subtitle, data, icon }) {
+function BentoInvestment({ icon, rate, title, desc, tags, span, dark = false, color = "bg-white" }) {
   const navigate = useNavigate();
-
   return (
-    <motion.div
-      variants={fadeUp}
-      className="bg-white border border-[#E3ECFF] p-10 rounded-[3rem] hover:shadow-2xl transition-all flex flex-col"
+    <motion.div 
+      whileHover={{ y: -10 }}
+      className={`${span} ${dark ? 'bg-slate-950 text-white border-transparent' : color} p-10 md:p-12 rounded-[2.5rem] border border-slate-100 flex flex-col justify-between shadow-sm transition-all duration-500 hover:shadow-2xl`}
     >
-      <div className="flex justify-between items-center mb-10">
-        <div className="bg-[#6495ED] text-white px-5 py-2 text-[10px] font-black rounded-xl tracking-widest">
-          {rate}
+      <div>
+        <div className="flex justify-between items-start mb-12">
+          <div className={`${dark ? 'bg-white/10 text-white' : 'bg-[#6495ED]/10 text-[#6495ED]'} p-4 rounded-2xl`}>
+            {React.cloneElement(icon, { size: 30 })}
+          </div>
+          <div className="text-2xl font-black text-[#6495ED]">{rate}</div>
         </div>
-        <div className="p-4 bg-[#EEF4FF] rounded-2xl text-[#6495ED]">
-          {icon}
-        </div>
+        <h3 className="text-2xl md:text-3xl font-black mb-4 tracking-tight leading-none">{title}</h3>
+        <p className={`text-sm md:text-base font-medium mb-10 leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{desc}</p>
+      </div>
+      
+      <div className="flex flex-wrap gap-2 mb-10">
+        {tags.map((tag, i) => (
+          <span key={i} className={`px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest ${dark ? 'bg-white/5' : 'bg-slate-50 text-[#6495ED]'}`}>
+            {tag}
+          </span>
+        ))}
       </div>
 
-      <h3 className="font-black text-xl mb-2">{title}</h3>
-      <p className="text-slate-500 text-sm mb-10">{subtitle}</p>
-
-      <div className="grid grid-cols-3 gap-3 py-6 mb-10 border-y border-[#E3ECFF]">
-        <Info label="Tenure" value={data.tenure} />
-        <Info label="Asset" value={data.asset} />
-        <Info label="Risk" value={data.risk} />
-      </div>
-
-      <button
+      <button 
         onClick={() => navigate("/contact")}
-        className="mt-auto bg-[#EEF4FF] text-[#6495ED] py-5 rounded-2xl font-black tracking-widest text-xs hover:bg-[#6495ED] hover:text-white transition-all"
+        className={`w-full py-5 rounded-2xl font-black text-[10px] tracking-[0.3em] uppercase transition-all ${dark ? 'bg-[#6495ED] hover:bg-white hover:text-slate-900' : 'bg-slate-900 text-white hover:bg-[#6495ED]'}`}
       >
-        INVEST NOW <ArrowUpRight className="inline ml-2" />
+        Analyze Opportunity
       </button>
     </motion.div>
-  );
-}
-
-function Info({ label, value }) {
-  return (
-    <div>
-      <p className="text-[9px] uppercase tracking-[0.25em] text-[#6495ED] font-black mb-1">
-        {label}
-      </p>
-      <p className="text-sm font-black text-slate-800 truncate">
-        {value}
-      </p>
-    </div>
   );
 }

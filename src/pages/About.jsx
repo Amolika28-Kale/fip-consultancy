@@ -19,241 +19,194 @@ import {
 /* ================= ANIMATIONS ================= */
 const container = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.12 } }
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
 };
 
 const reveal = {
-  hidden: { opacity: 0, y: 30, filter: "blur(8px)" },
+  hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
   visible: {
     opacity: 1,
     y: 0,
     filter: "blur(0)",
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
-  }
-};
-
-const softScale = {
-  hidden: { opacity: 0, scale: 0.96 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
   }
 };
 
 export default function About() {
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 800], [0, 120]);
-  const rotate = useTransform(scrollY, [0, 800], [0, 4]);
+  const y = useTransform(scrollY, [0, 800], [0, 100]);
 
   return (
-    <div className="bg-[#F6F9FF] text-slate-900 pt-20 overflow-x-hidden font-['Inter','Poppins',sans-serif]">
+    <div className="bg-[#FDFDFD] text-slate-900 pt-16 md:pt-24 overflow-x-hidden font-sans">
 
-      {/* ================= HERO ================= */}
-      <section className="relative min-h-[75vh] flex items-center justify-center bg-white border-b border-[#EAF1FF] overflow-hidden px-6">
+      {/* ================= HERO (MINIMALIST) ================= */}
+      <section className="relative min-h-[70vh] flex items-center justify-center px-4 md:px-6 overflow-hidden bg-white border-b border-slate-100">
         <motion.div
-          style={{ y, rotate }}
-          className="absolute inset-0 opacity-[0.04]"
+          style={{ y }}
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
         >
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage:
-                "radial-gradient(#6495ED 1.5px, transparent 1.5px)",
-              backgroundSize: "64px 64px"
+              backgroundImage: "radial-gradient(#3b82f6 1px, transparent 1px)",
+              backgroundSize: "40px 40px"
             }}
           />
         </motion.div>
 
-        {/* Ambient glows */}
-        <div className="absolute top-24 left-16 w-32 h-32 bg-blue-500/10 blur-2xl rounded-full" />
-        <div className="absolute bottom-24 right-16 w-40 h-40 bg-blue-500/10 blur-3xl rounded-full" />
-
-        <div className="relative z-10 max-w-6xl mx-auto text-center">
+        <div className="relative z-10 max-w-5xl mx-auto text-center">
           <motion.div variants={container} initial="hidden" animate="visible">
+            <motion.div variants={reveal} className="inline-flex items-center gap-3 px-5 py-2 bg-blue-50 border border-blue-100 rounded-full text-[9px] md:text-[11px] uppercase tracking-[0.4em] font-black text-blue-600 mb-8">
+              <Building2 size={14} /> Global Advisory Core
+            </motion.div>
 
-            <motion.span
+            <motion.h1 
               variants={reveal}
-              className="inline-flex items-center gap-3 px-6 py-3 bg-[#EAF1FF] border border-[#D6E4FF] rounded-full text-[11px] uppercase tracking-[0.35em] font-bold text-blue-600 mb-10"
+              className="text-[clamp(3rem,12vw,8.5rem)] font-black tracking-tighter leading-[0.85] text-slate-950"
             >
-              <Building2 size={14} />
-              Global Advisory Core
-            </motion.span>
-
-            <motion.h1
-              variants={reveal}
-              className="text-[clamp(3rem,8vw,9rem)] font-extrabold tracking-tight leading-[0.9]"
-            >
-              Our <span className="text-blue-600">Core</span>
+              Our <span className="text-blue-600">Core.</span>
             </motion.h1>
 
-            <motion.div
+            <motion.div 
               variants={reveal}
-              className="mt-10 flex justify-center gap-6 text-[11px] uppercase tracking-[0.45em] font-bold text-slate-500"
+              className="mt-8 flex justify-center gap-4 md:gap-8 text-[9px] md:text-[11px] uppercase tracking-[0.4em] font-bold text-slate-400"
             >
               <span>Finance</span>
+              <span className="w-1 h-1 bg-blue-600 rounded-full my-auto" />
               <span>Investment</span>
+              <span className="w-1 h-1 bg-blue-600 rounded-full my-auto" />
               <span>Property</span>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* ================= STORY ================= */}
-      <section className="relative py-32 px-6 bg-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F6F9FF] to-white" />
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-[#EAF1FF]/60 blur-3xl rounded-full" />
-
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="relative max-w-6xl mx-auto"
-        >
-          <motion.div variants={reveal} className="flex items-center gap-4 mb-10">
-            <div className="h-[2px] w-12 bg-blue-600" />
-            <p className="text-[11px] uppercase tracking-[0.35em] font-bold text-blue-600">
-              Institutional Identity
-            </p>
+      {/* ================= IDENTITY (EDITORIAL) ================= */}
+      <section className="py-20 md:py-32 px-4 md:px-6 bg-white">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 md:gap-20">
+          <motion.div 
+            className="lg:col-span-5"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={container}
+          >
+            <motion.div variants={reveal} className="flex items-center gap-4 mb-8">
+              <div className="h-[2px] w-10 bg-blue-600" />
+              <p className="text-[10px] md:text-[12px] uppercase tracking-[0.3em] font-black text-blue-600">
+                Institutional Identity
+              </p>
+            </motion.div>
+            <motion.h2 variants={reveal} className="text-3xl md:text-6xl font-black tracking-tighter leading-tight mb-8">
+              Engineering Financial <br />
+              <span className="text-blue-600">Discipline.</span>
+            </motion.h2>
+            <motion.p variants={reveal} className="text-slate-500 font-medium text-sm md:text-lg leading-relaxed">
+              FIP Consultancy institutionalizes financial decision-making by converting complexity into predictable, asset-aligned outcomes. We bridge the gap between individual ambition and institutional precision.
+            </motion.p>
           </motion.div>
 
-          <motion.h2
-            variants={reveal}
-            className="text-[clamp(2.25rem,5vw,4.5rem)] font-extrabold tracking-tight mb-12"
-          >
-            Engineering Financial
-            <br />
-            <span className="text-blue-600">Discipline</span>
-          </motion.h2>
-
-          <motion.p
-            variants={reveal}
-            className="max-w-3xl text-base md:text-lg font-medium text-slate-600 leading-relaxed mb-20"
-          >
-            <span className="font-semibold text-slate-900">FIP Consultancy</span>{" "}
-            institutionalizes financial decision-making by converting complexity
-            into{" "}
-            <span className="font-semibold text-blue-600">
-              predictable, asset-aligned outcomes
-            </span>.
-          </motion.p>
-
-          <motion.div
+          <motion.div 
+            className="lg:col-span-7 grid sm:grid-cols-2 gap-4 md:gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
             variants={container}
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
           >
             {[
-              { title: "Radical Transparency", icon: <Search size={18} /> },
-              { title: "Asset-Backed Security", icon: <ShieldCheck size={18} /> },
-              { title: "Managed Portfolios", icon: <Target size={18} /> },
-              { title: "Legal Stewardship", icon: <CheckCircle2 size={18} /> }
+              { title: "Radical Transparency", icon: <Search />, desc: "Complete visibility into asset workflows." },
+              { title: "Asset-Backed Security", icon: <ShieldCheck />, desc: "Risk mitigated by tangible collateral." },
+              { title: "Managed Portfolios", icon: <Target />, desc: "Lifecycle steering for capital growth." },
+              { title: "Legal Stewardship", icon: <CheckCircle2 />, desc: "Governance through compliant frameworks." }
             ].map((item, i) => (
               <motion.div
                 key={i}
-                variants={softScale}
-                whileHover={{ y: -6 }}
-                className="bg-white border border-[#EAF1FF] rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all"
+                variants={reveal}
+                className="p-8 md:p-10 rounded-[2.5rem] border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-xl transition-all duration-500 group"
               >
-                <div className="h-12 w-12 rounded-2xl bg-[#EAF1FF] flex items-center justify-center text-blue-600 mb-6">
-                  {item.icon}
+                <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                  {React.cloneElement(item.icon, { size: 20 })}
                 </div>
-                <h4 className="text-base md:text-lg font-bold">
-                  {item.title}
-                </h4>
+                <h4 className="text-lg font-black mb-3">{item.title}</h4>
+                <p className="text-xs md:text-sm text-slate-500 font-medium leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </motion.div>
-        </motion.div>
+        </div>
       </section>
 
-      {/* ================= VALUES ================= */}
-      <section className="py-32 bg-[#F6F9FF] px-6">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto text-center"
-        >
-          <motion.h2
-            variants={reveal}
-            className="text-[clamp(2.25rem,5vw,4.5rem)] font-extrabold tracking-tight mb-20"
-          >
-            Our <span className="text-blue-600">Values</span>
-          </motion.h2>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <Value icon={<Award />} title="Excellence" desc="Uncompromising quality across every mandate." />
-            <Value icon={<Globe />} title="Integrity" desc="Trust built through transparent execution." />
-            <Value icon={<Rocket />} title="Innovation" desc="Structured thinking beyond conventions." />
+      {/* ================= VALUES (BENTO) ================= */}
+      <section className="py-20 md:py-32 bg-slate-50 px-4 md:px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 md:mb-24">
+            <h2 className="text-3xl md:text-7xl font-black tracking-tighter mb-4">The <span className="text-blue-600">Standard.</span></h2>
+            <p className="text-slate-400 font-bold tracking-[0.2em] uppercase text-[10px] md:text-xs">Our Unwavering Values</p>
           </div>
-        </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            <ValueCard icon={<Award />} title="Excellence" desc="Uncompromising quality across every mandate, ensuring that every touchpoint reflects institutional rigor." />
+            <ValueCard icon={<Globe />} title="Integrity" desc="Trust is our primary asset. We build it through radical transparency and execution-focused honesty." />
+            <ValueCard icon={<Rocket />} title="Innovation" desc="Structured thinking beyond conventions to unlock liquidity in traditional asset classes." />
+          </div>
+        </div>
       </section>
 
-      {/* ================= STATS ================= */}
-      <section className="py-28 bg-white px-6">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto grid md:grid-cols-4 gap-6"
-        >
-          <Stat value="1K+" label="Active Clients" icon={<Users />} />
-          <Stat value="₹500Cr" label="AUM Advisory" icon={<BarChart4 />} />
-          <Stat value="98%" label="Retention" icon={<Handshake />} />
-          <Stat value="15Y" label="Market Tenure" icon={<Clock />} />
-        </motion.div>
+      {/* ================= STATS (MINIMAL) ================= */}
+      <section className="py-20 md:py-32 bg-white px-4 md:px-6">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          <StatItem value="1K+" label="Active Clients" icon={<Users />} />
+          <StatItem value="₹500Cr" label="Advisory AUM" icon={<BarChart4 />} />
+          <StatItem value="98%" label="Retention" icon={<Handshake />} />
+          <StatItem value="15Y" label="Market Tenure" icon={<Clock />} />
+        </div>
       </section>
 
-      {/* ================= FINALE ================= */}
-      <section className="py-36 bg-slate-950 text-white px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <p className="text-[clamp(2rem,5vw,4rem)] font-extrabold tracking-tight">
-            Every decision is rooted in{" "}
-            <span className="text-blue-400 italic">discipline</span> and legacy.
-          </p>
+      {/* ================= FINAL (IMPACT) ================= */}
+      <section className="py-32 md:py-48 bg-slate-950 text-white px-4 md:px-6 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-[clamp(1.75rem,5vw,4.5rem)] font-black tracking-tighter leading-[1.1]"
+          >
+            Every decision is rooted in <br />
+            <span className="text-blue-500 italic">discipline</span> and legacy.
+          </motion.p>
+        </div>
+        {/* Decorative Watermark */}
+        <div className="absolute bottom-[-10%] right-[-5%] text-[15vw] font-black text-white/[0.03] select-none pointer-events-none">
+          FIP.EST
         </div>
       </section>
     </div>
   );
 }
 
-/* ================= COMPONENTS ================= */
+/* ================= SUB-COMPONENTS ================= */
 
-function Value({ icon, title, desc }) {
+function ValueCard({ icon, title, desc }) {
   return (
     <motion.div
-      variants={reveal}
-      whileHover={{ y: -8 }}
-      className="bg-white p-12 rounded-[3rem] border border-[#EAF1FF] shadow hover:shadow-xl"
+      whileHover={{ y: -10 }}
+      className="bg-white p-10 md:p-12 rounded-[3rem] border border-slate-100 shadow-sm transition-all duration-500"
     >
-      <div className="w-14 h-14 bg-[#EAF1FF] rounded-2xl flex items-center justify-center mb-6 mx-auto text-blue-600">
-        {icon}
+      <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-8 text-blue-600">
+        {React.cloneElement(icon, { size: 28 })}
       </div>
-      <h3 className="text-xl md:text-2xl font-bold mb-4">{title}</h3>
-      <p className="text-slate-500 text-sm md:text-base">{desc}</p>
+      <h3 className="text-2xl font-black mb-4 tracking-tight">{title}</h3>
+      <p className="text-slate-500 text-sm md:text-base font-medium leading-relaxed">{desc}</p>
     </motion.div>
   );
 }
 
-function Stat({ value, label, icon }) {
+function StatItem({ value, label, icon }) {
   return (
-    <motion.div
-      variants={reveal}
-      whileHover={{ y: -8 }}
-      className="bg-[#F6F9FF] p-10 rounded-[3rem] border border-[#EAF1FF] text-center shadow-sm hover:shadow-xl"
-    >
-      <div className="mx-auto mb-6 p-4 bg-[#EAF1FF] rounded-2xl text-blue-600 w-fit">
-        {icon}
+    <div className="flex flex-col items-center text-center group">
+      <div className="text-blue-600 mb-6 group-hover:scale-110 transition-transform">
+        {React.cloneElement(icon, { size: 32 })}
       </div>
-      <p className="text-4xl md:text-5xl font-extrabold tracking-tight">
-        {value}
-      </p>
-      <p className="text-[11px] uppercase tracking-[0.35em] font-bold text-blue-600 mt-2">
-        {label}
-      </p>
-    </motion.div>
+      <div className="text-3xl md:text-5xl font-black text-slate-950 tracking-tighter mb-2">{value}</div>
+      <div className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.3em] text-slate-400">{label}</div>
+    </div>
   );
 }

@@ -1,204 +1,173 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { Lock, ShieldCheck, CheckCircle2, CreditCard, Landmark, ArrowRight } from "lucide-react";
 
 /* ================= ANIMATIONS ================= */
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
-const fadeRight = {
-  hidden: { opacity: 0, x: -40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.7, ease: "easeOut" },
-  },
-};
-
-const fadeLeft = {
-  hidden: { opacity: 0, x: 40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.7, ease: "easeOut" },
-  },
-};
-
-const scaleSoft = {
-  hidden: { opacity: 0, scale: 0.96 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
+const containerStagger = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
 };
 
 export default function Payment() {
   const [paymentMethod, setPaymentMethod] = useState("upi");
   const amount = 499;
 
-  const STRIPE_PAYMENT_LINK =
-    "https://buy.stripe.com/test_3cI6oJ1t30Jr7b2cNAeZ200";
+  const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/test_3cI6oJ1t30Jr7b2cNAeZ200";
 
   const handlePayment = () => {
     window.location.href = STRIPE_PAYMENT_LINK;
   };
 
   return (
-    <>
-    <div className="min-h-screen bg-[#F6F9FF] text-slate-800 flex items-center justify-center px-6 selection:bg-[#EAF1FF] selection:text-[#2C4FA3]">
+    <div className="min-h-screen bg-[#FDFDFD] text-slate-900 pt-16 md:pt-0 flex items-center justify-center px-4 md:px-6 overflow-hidden font-sans">
+      
+      {/* Background Decorative Element */}
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50 -z-10 skew-x-[-12deg] translate-x-1/4 hidden md:block" />
+
       <motion.div
         initial="hidden"
         animate="visible"
-        className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24"
+        variants={containerStagger}
+        className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center py-10"
       >
 
-        {/* ================= LEFT CONTENT ================= */}
-        <motion.div variants={fadeRight} className="flex flex-col justify-center">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-8 w-1.5 bg-[#6495ED] rounded-full" />
-            <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
-              FIP <span className="text-[#6495ED]">Consultancy</span>
-            </h1>
-          </div>
+        {/* ================= LEFT: TRANSACTION SUMMARY ================= */}
+        <motion.div variants={fadeUp} className="lg:col-span-7">
+          <motion.div className="flex items-center gap-3 mb-6">
+            <span className="w-10 h-[1px] bg-blue-600" />
+            <span className="text-blue-600 text-[9px] md:text-[11px] uppercase tracking-[0.4em] font-black">Transaction Gateway</span>
+          </motion.div>
 
-          <p className="text-slate-500 text-lg mb-10 max-w-lg leading-relaxed font-medium">
-            Confirm your professional consultation. You will be redirected to
-            <strong className="text-[#2C4FA3]">
-              {" "}Stripe’s 256-bit secure checkout
-            </strong>{" "}
-            for a seamless experience.
+          <h1 className="text-[clamp(2.2rem,6vw,4.5rem)] font-black tracking-tighter leading-[0.9] text-slate-950 mb-8">
+            Confirm Your <br />
+            <span className="text-blue-600">Consultation.</span>
+          </h1>
+
+          <p className="text-slate-500 text-sm md:text-lg font-medium leading-relaxed mb-10 max-w-lg border-l-2 border-slate-100 pl-6">
+            Secure your session with a Financial Principal. Professional grade encryption ensures your data remains <span className="text-slate-950 font-bold">confidential.</span>
           </p>
 
-          <div className="space-y-4 border-l-2 border-[#D6E4FF] pl-8">
+          <div className="grid gap-4 mb-10">
             {[
-              "Instant Finance & Loan Advisory",
-              "Investment Opportunities & ROI Planning",
-              "Property Buy & Sell Consultation",
-              "Professional Financial Structuring",
+              "Priority Advisory Callback",
+              "Structured ROI Planning",
+              "Asset-Backed Strategy"
             ].map((item, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                className="flex items-center gap-3 text-slate-700 font-semibold"
-              >
-                <CheckCircle2
-                  className="text-[#6495ED]"
-                  size={18}
-                />
+              <div key={i} className="flex items-center gap-3 text-[10px] md:text-xs font-black uppercase tracking-widest text-slate-400">
+                <CheckCircle2 className="text-blue-600" size={16} />
                 {item}
-              </motion.div>
+              </div>
             ))}
           </div>
 
-          <motion.div
-            variants={scaleSoft}
-            className="mt-12 flex items-center gap-4 p-4 bg-white rounded-2xl border border-[#EAF1FF] w-fit shadow-sm"
-          >
-            <motion.div
-              animate={{ scale: [1, 1.08, 1] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          <div className="flex items-center gap-4 p-5 bg-white border border-slate-100 rounded-[2rem] w-fit shadow-sm">
+            <motion.div 
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="text-blue-600"
             >
-              <ShieldCheck className="text-[#6495ED]" size={24} />
+              <ShieldCheck size={28} />
             </motion.div>
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                Security Standard
-              </p>
-              <p className="text-xs font-bold text-slate-600">
-                Encrypted • Certified • Private
-              </p>
+              <p className="text-[9px] font-black uppercase tracking-widest text-slate-300">Encryption Standard</p>
+              <p className="text-[10px] md:text-xs font-bold text-slate-600">AES-256 Bit Secure Socket Layer</p>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
 
-        {/* ================= RIGHT PAYMENT CARD ================= */}
+        {/* ================= RIGHT: PAYMENT TERMINAL ================= */}
         <motion.div
-          variants={fadeLeft}
-          className="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl shadow-[#EAF1FF] border border-[#D6E4FF] relative overflow-hidden"
+          variants={fadeUp}
+          className="lg:col-span-5 bg-white p-6 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl shadow-blue-900/5 border border-slate-100 relative"
         >
-          {/* Background Glow */}
-          <motion.div
-            animate={{ opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 6, repeat: Infinity }}
-            className="absolute top-0 right-0 w-40 h-40 bg-[#87AFFF]/30 blur-3xl -z-10 rounded-full"
-          />
-
           <div className="flex justify-between items-center mb-10">
-            <h2 className="text-xl font-black text-slate-900 tracking-tight">
-              Checkout Details
-            </h2>
-            <div className="bg-[#EAF1FF] p-2 rounded-lg">
-              <Lock size={18} className="text-[#6495ED]" />
+            <h2 className="text-xl font-black tracking-tight text-slate-950">Terminal</h2>
+            <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
+              <Lock size={18} />
             </div>
           </div>
 
-          {/* Payment Method */}
+          {/* Payment Tabs */}
           <div className="mb-10">
-            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-5 block">
-              Select Payment Method
-            </label>
-
-            <div className="grid grid-cols-2 gap-4">
-              {["upi", "netbanking"].map((method) => (
-                <motion.button
-                  key={method}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  onClick={() => setPaymentMethod(method)}
-                  className={`py-4 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all border-2 ${
-                    paymentMethod === method
-                      ? "bg-[#6495ED] text-white border-[#6495ED] shadow-lg"
-                      : "bg-white border-[#D6E4FF] text-slate-500 hover:border-[#6495ED]"
-                  }`}
-                >
-                  {method === "upi" ? "UPI" : "Net Banking"}
-                </motion.button>
-              ))}
+            <p className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 ml-1">Method Selection</p>
+            <div className="grid grid-cols-2 gap-3">
+              <PaymentTab 
+                active={paymentMethod === "upi"} 
+                onClick={() => setPaymentMethod("upi")}
+                icon={<CreditCard size={14} />}
+                label="UPI" 
+              />
+              <PaymentTab 
+                active={paymentMethod === "netbanking"} 
+                onClick={() => setPaymentMethod("netbanking")}
+                icon={<Landmark size={14} />}
+                label="Banking" 
+              />
             </div>
           </div>
 
-          {/* Amount */}
-          <motion.div variants={scaleSoft} className="bg-[#EAF1FF]/60 rounded-3xl p-6 mb-8 border border-[#D6E4FF]">
-            <div className="flex justify-between text-slate-500 text-sm mb-2">
-              <span>Consultation Fee</span>
-              <span>₹499</span>
+          {/* Amount Breakdown */}
+          
+          <div className="bg-slate-50 rounded-[2rem] p-6 mb-8 space-y-3">
+            <div className="flex justify-between text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">
+              <span>Mandate Fee</span>
+              <span>₹499.00</span>
             </div>
-            <div className="flex justify-between text-slate-500 text-sm mb-4">
-              <span>GST (Included)</span>
-              <span>₹0</span>
+            <div className="flex justify-between text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">
+              <span>Platform Tax</span>
+              <span>Included</span>
             </div>
-            <div className="h-px bg-[#D6E4FF] mb-4" />
-            <div className="flex justify-between text-xl font-black text-slate-900">
-              <span>Total Payable</span>
-              <span className="text-[#6495ED]">₹{amount}</span>
+            <div className="h-[1px] bg-slate-200 my-2" />
+            <div className="flex justify-between items-end">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-600">Total Payable</span>
+              <span className="text-2xl md:text-3xl font-black text-slate-950 tracking-tighter">₹{amount}</span>
             </div>
-          </motion.div>
+          </div>
 
           <motion.button
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={handlePayment}
-            className="w-full bg-[#6495ED] hover:bg-[#2C4FA3] text-white py-5 rounded-2xl font-black uppercase tracking-widest shadow-xl transition-all"
+            className="w-full bg-blue-600 hover:bg-slate-950 text-white py-5 md:py-6 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-[0.3em] shadow-xl shadow-blue-600/20 transition-all flex items-center justify-center gap-3"
           >
-            Pay Now • ₹{amount}
+            Authorize Payment <ArrowRight size={16} />
           </motion.button>
 
           <div className="mt-8 text-center">
-            <p className="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em]">
-              Powered by Stripe Secure Checkout
+            <p className="text-[8px] md:text-[9px] text-slate-300 font-bold uppercase tracking-[0.2em]">
+              PCI DSS Compliant • Stripe Secure Network
             </p>
           </div>
         </motion.div>
       </motion.div>
     </div>
-    </>
+  );
+}
+
+/* ================= SUB-COMPONENTS ================= */
+
+function PaymentTab({ active, onClick, label, icon }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex items-center justify-center gap-2 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
+        active 
+        ? "bg-slate-950 text-white border-slate-950 shadow-lg" 
+        : "bg-white text-slate-400 border-slate-100 hover:border-blue-600"
+      }`}
+    >
+      {icon}
+      {label}
+    </button>
   );
 }

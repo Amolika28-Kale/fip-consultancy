@@ -11,10 +11,14 @@ import {
   Coins,
   BarChart3,
   Settings,
-  CheckCircle2
+  CheckCircle2,
+  TrendingUp,
+  Layers
 } from "lucide-react";
 
-/* ================= ANIMATIONS ================= */
+/* ================= MOTION CONFIG ================= */
+const ease = [0.16, 1, 0.3, 1];
+
 const containerStagger = {
   hidden: { opacity: 0 },
   visible: {
@@ -24,287 +28,238 @@ const containerStagger = {
 };
 
 const perspectiveReveal = {
-  hidden: { opacity: 0, y: 36, rotateX: -10, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 30, rotateX: -10, filter: "blur(4px)" },
   visible: {
     opacity: 1,
     y: 0,
     rotateX: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
+    transition: { duration: 0.8, ease }
   }
 };
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55 } }
-};
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.45 } }
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } }
 };
 
 export default function Finance() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-paper text-slate-900 overflow-x-hidden pt-20 md:pt-28 font-sans">
-
-      {/* ================= HERO ================= */}
-      <section className="relative min-h-[80vh] bg-white border-b border-[#E3ECFF] flex items-center overflow-hidden px-6">
-
-        {/* Ambient Glows */}
-        <motion.div
-          animate={{ x: [0, 40, 0], y: [0, 25, 0], opacity: [0.2, 0.4, 0.2] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-32 -left-32 w-[700px] h-[700px] bg-[#6495ED33] blur-[140px] rounded-full"
-        />
-        <motion.div
-          animate={{ x: [0, -30, 0], y: [0, -20, 0], opacity: [0.18, 0.32, 0.18] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-[-160px] right-[-120px] w-[600px] h-[600px] bg-[#EEF4FF] blur-[160px] rounded-full"
-        />
-
-        <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <motion.div
+    <div className="bg-[#F8FAFC] text-slate-900 overflow-x-hidden selection:bg-[#6495ED] selection:text-white">
+      
+      {/* ================= HERO (REFINED) ================= */}
+      <section className="relative min-h-[90vh] flex items-center pt-24 px-6 overflow-hidden">
+        {/* Clean Geometric Accent */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50 -z-10 skew-x-[-12deg] translate-x-1/4 hidden lg:block border-l border-slate-100" />
+        
+        <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-12 items-center">
+          <motion.div 
             variants={containerStagger}
             initial="hidden"
             animate="visible"
-            className="max-w-5xl"
+            className="lg:col-span-7"
           >
-            <motion.h1
+            <motion.div variants={perspectiveReveal} className="inline-block px-3 py-1 bg-white border border-slate-200 text-[#6495ED] font-bold text-[10px] tracking-[0.3em] uppercase mb-8 rounded">
+              Institutional Grade Advisory
+            </motion.div>
+            
+            <motion.h1 
               variants={perspectiveReveal}
-              className="font-black tracking-tight leading-[0.95] mb-10 text-[clamp(2.6rem,7vw,6.5rem)]"
+              className="font-black tracking-tighter leading-[1.0] mb-8 text-[clamp(2.5rem,8vw,5.5rem)] text-slate-950"
             >
-              Structured <br />
-              <span className="text-[#6495ED]">Capital.</span>
+              Finance <br />
+              <span className="text-[#6495ED]">Redefined.</span>
             </motion.h1>
 
-            <motion.p
-              variants={perspectiveReveal}
-              className="max-w-3xl text-[15px] sm:text-[16px] md:text-[18px] text-slate-500 font-medium leading-relaxed mb-14"
-            >
-              Institutional-grade funding mechanisms designed for scalable growth,
-              governed by compliance and asset-backed certainty.
-            </motion.p>
-
-            <motion.div variants={perspectiveReveal}>
+            <motion.div variants={perspectiveReveal} className="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
+              <p className="max-w-md text-slate-500 font-medium leading-relaxed text-sm md:text-lg border-l-2 border-[#6495ED] pl-6">
+                Engineered capital solutions for the ambitious enterprise. 
+                Governance meets rapid-deployment liquidity.
+              </p>
               <button
                 onClick={() => navigate("/contact")}
-                className="group flex items-center gap-4 bg-slate-950 text-white px-12 py-6 rounded-2xl font-black tracking-[0.25em] hover:bg-[#6495ED] transition-all shadow-2xl text-xs sm:text-sm"
+                className="group h-16 w-16 md:h-20 md:w-20 rounded-full bg-slate-950 flex items-center justify-center text-white hover:bg-[#6495ED] transition-all duration-300 shadow-xl"
               >
-                REQUEST PROPOSAL
-                <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </button>
             </motion.div>
           </motion.div>
+
+          {/* Clean Structural Art */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="lg:col-span-5 relative hidden lg:block"
+          >
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative z-10">
+              <div className="flex justify-between items-center mb-10">
+                <div className="w-10 h-10 bg-slate-50 rounded flex items-center justify-center text-slate-400">
+                  <TrendingUp size={20} />
+                </div>
+                <div className="text-right">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Efficiency Rating</div>
+                  <div className="text-xl font-black text-slate-950">98.2%</div>
+                </div>
+              </div>
+              <div className="space-y-4">
+                {[70, 90, 65].map((w, i) => (
+                  <div key={i} className="h-1.5 bg-slate-50 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: `${w}%` }}
+                      transition={{ duration: 1.5, delay: 1 + (i * 0.1) }}
+                      className={`h-full ${i === 1 ? 'bg-[#6495ED]' : 'bg-slate-300'}`} 
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ================= CAPABILITIES ================= */}
-      <section className="py-28 md:py-36 bg-white">
+      {/* ================= CAPABILITIES (STRUCTURED) ================= */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="mb-24"
-          >
-            <h2 className="font-black tracking-tight text-[clamp(2.2rem,6vw,4.5rem)]">
-              Capabilities
-            </h2>
-            <p className="mt-6 text-[15px] md:text-[17px] text-slate-500 font-medium max-w-xl">
-              Precision-engineered liquidity solutions.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="grid lg:grid-cols-2 gap-10"
-            variants={containerStagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {[
-              {
-                title: "Personal & Secured Loans",
-                icon: <Coins size={30} />,
-                desc: "Fast-track liquidity with digital-first approval workflows.",
-                items: ["Up to ₹10 Lakhs", "7 Year Tenure", "Quick Sanction"],
-                theme: "light"
-              },
-              {
-                title: "Business & Project Finance",
-                icon: <Briefcase size={30} />,
-                desc: "Growth-aligned funding for enterprises and infrastructure.",
-                items: ["₹10L to ₹10Cr", "Structured Capital", "Scalable"],
-                theme: "dark"
-              },
-              {
-                title: "Land & Property Finance",
-                icon: <Landmark size={30} />,
-                desc: "Capital unlocked via asset-backed property lending.",
-                items: ["Resi 60% LTV", "Comm 70% LTV", "Short Term"],
-                theme: "tint"
-              },
-              {
-                title: "Trade & Asset Finance",
-                icon: <BarChart3 size={30} />,
-                desc: "Working capital solutions for trade and exports.",
-                items: ["Gold Finance", "Export Credit", "Invoice Funding"],
-                theme: "vibrant"
-              }
-            ].map((block, i) => (
-              <motion.div
-                key={i}
-                variants={perspectiveReveal}
-                className={`p-12 md:p-14 rounded-[3rem] border transition-all hover:-translate-y-1.5 hover:shadow-2xl ${
-                  block.theme === "dark"
-                    ? "bg-slate-950 text-white border-slate-800"
-                    : block.theme === "vibrant"
-                    ? "bg-[#6495ED] text-white border-[#6495ED]"
-                    : block.theme === "tint"
-                    ? "bg-[#EEF4FF] border-[#E3ECFF]"
-                    : "bg-white border-[#E3ECFF]"
-                }`}
-              >
-                <div
-                  className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-10 ${
-                    block.theme === "dark" || block.theme === "vibrant"
-                      ? "bg-white/10"
-                      : "bg-[#EEF4FF] text-[#6495ED]"
-                  }`}
-                >
-                  {block.icon}
+          <div className="grid lg:grid-cols-12 gap-6">
+            
+            {/* Lead Card */}
+            <motion.div 
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="lg:col-span-8 bg-slate-950 rounded-2xl p-8 md:p-14 text-white overflow-hidden relative"
+            >
+              <div className="relative z-10">
+                <div className="bg-[#6495ED] w-12 h-12 rounded flex items-center justify-center mb-8">
+                  <Briefcase className="text-white" size={24} />
                 </div>
-
-                <h3 className="font-black tracking-tight text-xl md:text-2xl mb-5">
-                  {block.title}
-                </h3>
-
-                <p
-                  className={`mb-12 text-[14px] md:text-[16px] font-medium leading-relaxed ${
-                    block.theme === "dark" || block.theme === "vibrant"
-                      ? "text-blue-100"
-                      : "text-slate-500"
-                  }`}
-                >
-                  {block.desc}
+                <h3 className="text-3xl md:text-5xl font-black mb-6 tracking-tight">Structured <br/>Corporate Debt</h3>
+                <p className="text-slate-400 text-sm md:text-lg max-w-md mb-8 font-medium">
+                  Custom-built funding instruments for enterprise expansion and large-scale asset acquisition.
                 </p>
-
-                <div className="grid sm:grid-cols-3 gap-4">
-                  {block.items.map((item, idx) => (
-                    <motion.div
-                      key={idx}
-                      variants={scaleIn}
-                      className={`flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] px-4 py-3 rounded-xl ${
-                        block.theme === "dark" || block.theme === "vibrant"
-                          ? "bg-white/10"
-                          : "bg-[#EEF4FF] text-[#6495ED]"
-                      }`}
-                    >
-                      <CheckCircle2 size={12} />
-                      {item}
-                    </motion.div>
+                <div className="flex flex-wrap gap-3">
+                  {["₹10Cr Cap", "Flexible Tenure"].map((tag, i) => (
+                    <span key={i} className="px-4 py-2 bg-white/5 border border-white/10 rounded text-[9px] font-bold uppercase tracking-widest">
+                      {tag}
+                    </span>
                   ))}
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Side Card */}
+            <motion.div 
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="lg:col-span-4 bg-[#6495ED] rounded-2xl p-8 md:p-12 text-white flex flex-col justify-between"
+            >
+              <div className="bg-white/10 w-12 h-12 rounded flex items-center justify-center mb-8">
+                <Landmark size={24} />
+              </div>
+              <div>
+                <h3 className="text-2xl font-black mb-4 tracking-tight leading-tight">Asset Backed Liquidity</h3>
+                <p className="text-blue-50 text-xs md:text-sm font-medium">Unlock capital from high-value real estate portfolios.</p>
+              </div>
+            </motion.div>
+
+            {/* Bottom Cards */}
+            <CapCard 
+              icon={<Coins />} 
+              title="Retail Speed" 
+              desc="Digital-first sanctions for personal milestones." 
+              span="lg:col-span-4" 
+            />
+            <CapCard 
+              icon={<BarChart3 />} 
+              title="Trade Finance" 
+              desc="Global working capital for seamless export operations." 
+              span="lg:col-span-4" 
+            />
+            <CapCard 
+              icon={<BadgePercent />} 
+              title="Wealth Credit" 
+              desc="Liquidity lines backed by diverse financial instruments." 
+              span="lg:col-span-4" 
+            />
+          </div>
         </div>
       </section>
 
-      {/* ================= EXECUTION MODEL ================= */}
-      <section className="py-28 md:py-36 bg-[#EEF4FF]">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+      {/* ================= STRATEGIC PIPELINE ================= */}
+      <section className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-950">The <span className="text-[#6495ED]">Pipeline</span></h2>
+            <p className="text-slate-400 font-bold tracking-widest uppercase text-[10px]">Institutional Deployment Process</p>
+          </div>
 
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
-            className="w-20 h-20 mx-auto mb-14 bg-white rounded-full flex items-center justify-center shadow-xl"
-          >
-            <Settings className="text-[#6495ED]" size={30} />
-          </motion.div>
+          {/* Strategic Diagram */}
+          
 
-          <motion.h2
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="font-black tracking-tight mb-24 text-[clamp(2rem,6vw,4.5rem)]"
-          >
-            Execution Framework
-          </motion.h2>
-
-          <motion.div
-            className="grid md:grid-cols-4 gap-8"
-            variants={containerStagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-12">
             {[
-              { t: "Requirement", d: "Understanding objectives & liquidity needs.", i: <BarChart3 /> },
-              { t: "Verification", d: "KYC, asset & compliance validation.", i: <FileCheck /> },
-              { t: "Structuring", d: "Risk-aligned financial engineering.", i: <BadgePercent /> },
-              { t: "Deployment", d: "Rapid capital release.", i: <Coins /> }
+              { t: "Audit", d: "Capital discovery phase.", i: <BarChart3 /> },
+              { t: "Validate", d: "Underwriting & KYC.", i: <FileCheck /> },
+              { t: "Engineer", d: "Debt structuring.", i: <Settings /> },
+              { t: "Release", d: "Direct fund deployment.", i: <CheckCircle2 /> }
             ].map((step, i) => (
               <motion.div
                 key={i}
-                variants={fadeInUp}
-                className="bg-white p-10 md:p-12 rounded-[3rem] border border-[#E3ECFF] hover:shadow-2xl transition-all"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-white p-8 rounded-xl border border-slate-200"
               >
-                <div className="text-4xl font-black text-[#6495ED22] mb-6">
-                  0{i + 1}
-                </div>
-                <div className="p-5 mb-6 bg-[#EEF4FF] rounded-2xl text-[#6495ED] inline-block">
-                  {step.i}
-                </div>
-                <h4 className="font-black tracking-tight text-lg mb-3">
-                  {step.t}
-                </h4>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  {step.d}
-                </p>
+                <div className="text-xs font-black text-[#6495ED] mb-4">STEP 0{i + 1}</div>
+                <h4 className="text-lg font-black mb-2 tracking-tight">{step.t}</h4>
+                <p className="text-slate-500 text-xs font-medium leading-relaxed">{step.d}</p>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* ================= FINAL CTA ================= */}
-      <section className="py-36 px-6">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 32 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-6xl mx-auto bg-slate-950 rounded-[4rem] p-16 md:p-28 text-center shadow-2xl"
+      <section className="py-32 px-6 flex flex-col items-center text-center">
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="text-4xl md:text-7xl font-black tracking-tighter mb-10 text-slate-950"
         >
-          <motion.h2
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="font-black tracking-tight text-[clamp(2rem,6vw,4.5rem)] text-white mb-14 leading-tight"
-          >
-            Capital structured <br />
-            with <span className="text-[#6495ED]">absolute clarity.</span>
-          </motion.h2>
-
-          <motion.button
-            variants={scaleIn}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            onClick={() => navigate("/contact")}
-            className="bg-[#6495ED] hover:bg-white hover:text-slate-900 transition-all px-14 py-7 rounded-2xl font-black tracking-[0.25em] shadow-xl text-xs sm:text-sm"
-          >
-            SPEAK WITH AN ADVISOR
-          </motion.button>
-        </motion.div>
+          Ready to <span className="text-[#6495ED]">Scale?</span>
+        </motion.h2>
+        <button
+          onClick={() => navigate("/contact")}
+          className="px-10 py-5 bg-slate-950 text-white rounded font-bold tracking-widest text-xs hover:bg-[#6495ED] transition-all shadow-xl"
+        >
+          INITIALIZE PROPOSAL
+        </button>
       </section>
     </div>
+  );
+}
+
+function CapCard({ icon, title, desc, span }) {
+  return (
+    <motion.div 
+      variants={fadeInUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className={`${span} bg-white border border-slate-200 p-8 rounded-xl hover:shadow-lg transition-all group`}
+    >
+      <div className="text-[#6495ED] mb-6">
+        {React.cloneElement(icon, { size: 28 })}
+      </div>
+      <h4 className="text-lg font-black mb-2 tracking-tight">{title}</h4>
+      <p className="text-slate-500 text-xs font-medium leading-relaxed">{desc}</p>
+    </motion.div>
   );
 }

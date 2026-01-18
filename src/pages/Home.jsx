@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useRef } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import React from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowRight,
@@ -13,212 +13,205 @@ import {
   Fingerprint,
   ChevronRight,
   ShieldCheck,
+  TrendingUp,
 } from "lucide-react";
 
 /* ================= MOTION CONFIG ================= */
 const ease = [0.16, 1, 0.3, 1];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 20 },
   visible: (d = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: d, duration: 0.7, ease },
+    transition: { delay: d, duration: 0.8, ease },
   }),
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.15 },
-  },
 };
 
 export default function Home() {
   const navigate = useNavigate();
-  const containerRef = useRef(null);
-
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -50]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-
   return (
-    <div className="bg-paper text-ink font-sans selection:bg-accent selection:text-white">
-
-      {/* Progress Bar */}
+    <div className="bg-[#F8FAFC] text-[#0B1B3A] font-sans selection:bg-[#6495ED] selection:text-white">
+      {/* Subtle Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#6495ED] via-[#A5C4FF] to-[#6495ED] origin-left z-[100]"
+        className="fixed top-0 left-0 right-0 h-[3px] bg-[#6495ED] origin-left z-[100]"
         style={{ scaleX }}
       />
 
-      {/* ================= HERO ================= */}
-      <section className="relative min-h-[90vh] md:min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
-        <div className="relative max-w-7xl mx-auto px-6 w-full z-10">
-          <motion.div style={{ y: heroY, opacity: heroOpacity }}>
-
-            {/* Trust Badge */}
+      {/* ================= HERO SECTION ================= */}
+      <section className="relative min-h-[90vh] flex items-center pt-20 pb-12">
+        <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-16 items-center">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              visible: { transition: { staggerChildren: 0.1 } }
+            }}
+          >
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-[#6495ED]/20 text-[#4B6FD6] text-[10px] tracking-[0.3em] font-bold uppercase"
+              variants={fadeUp}
+              className="inline-flex items-center gap-2 mb-6 px-3 py-1 bg-white border border-slate-200 text-[#4B6FD6] text-[10px] tracking-[0.2em] font-bold uppercase rounded"
             >
-              <ShieldCheck size={14} />
-              Trusted Institutional Partner
+              <ShieldCheck size={12} /> Institutional Partner
             </motion.div>
 
-            {/* Hero Title */}
             <motion.h1
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
-              className="leading-[0.92] tracking-tight mb-10"
+              variants={fadeUp}
+              className="text-[clamp(2.5rem,6vw,4.5rem)] font-black leading-[1.1] tracking-tighter mb-6 text-[#0B1B3A]"
             >
-              <motion.span
-                variants={fadeUp}
-                className="block font-black text-[clamp(2.6rem,9vw,6.5rem)] text-[#0B1B3A]"
-              >
-                FIP
-              </motion.span>
-              <motion.span
-                variants={fadeUp}
-                className="block font-black text-[clamp(2.5rem,8vw,6rem)] text-transparent bg-clip-text bg-gradient-to-r from-[#6495ED] to-[#3B71D8]"
-              >
-                CONSULTANCY
-              </motion.span>
+              FIP <br />
+              <span className="text-[#6495ED]">CONSULTANCY</span>
             </motion.h1>
 
-            {/* Hero Description */}
             <motion.p
-              initial={{ opacity: 0, x: -16 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-              className="max-w-xl text-[15px] sm:text-[16px] md:text-[18px] leading-relaxed text-[#5B6E99] font-medium border-l-2 border-[#6495ED] pl-6 mb-12"
+              variants={fadeUp}
+              className="max-w-md text-sm md:text-lg text-[#5B6E99] leading-relaxed mb-8 border-l-2 border-[#6495ED] pl-6"
             >
-A comprehensive financial ecosystem designed to support individuals and businesses through structured solutions and professionally managed services.            </motion.p>
+              Architecting a financial ecosystem where institutional precision
+              meets individual ambition. Structured solutions for modern capital.
+            </motion.p>
 
-            {/* CTA */}
-            <motion.div className="flex flex-col sm:flex-row gap-4">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+            <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-4">
+              <button
                 onClick={() => navigate("/contact")}
-                className="px-10 py-5 rounded-2xl bg-[#6495ED] text-white font-bold tracking-wide flex items-center justify-center gap-3 shadow-lg"
+                className="px-8 py-4 bg-[#0B1B3A] text-white text-xs md:text-sm font-bold uppercase tracking-widest flex items-center gap-3 transition-colors hover:bg-[#6495ED]"
               >
-                Consult Now <ArrowRight size={18} />
-              </motion.button>
-
-              <motion.button
-                whileHover={{ backgroundColor: "#ffffff" }}
+                Get Started
+                <ArrowRight size={16} />
+              </button>
+              <button
                 onClick={() => navigate("/about")}
-                className="px-10 py-5 rounded-2xl border border-[#DCE8FF] bg-white/60 backdrop-blur-sm font-bold tracking-wide text-[#0B1B3A]"
+                className="px-8 py-4 bg-transparent text-[#0B1B3A] text-xs md:text-sm font-bold uppercase tracking-widest border border-slate-200 transition-colors hover:bg-slate-50"
               >
-                Our Model
-              </motion.button>
+                Methodology
+              </button>
             </motion.div>
+          </motion.div>
+
+          {/* Hero Visual - Clean & Structural */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease }}
+            className="relative hidden lg:block"
+          >
+            <div className="aspect-[4/3] bg-slate-100 rounded-2xl relative overflow-hidden border border-slate-200 shadow-sm">
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <TrendingUp size={120} className="text-slate-200" />
+                </div>
+                {/* Information Card Overlay */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 bg-white p-6 rounded-xl shadow-xl border border-slate-100">
+                    <div className="flex justify-between items-center mb-6">
+                        <div className="text-[10px] font-bold uppercase tracking-widest text-[#6495ED]">Capital Flow</div>
+                        <Zap size={14} className="text-[#6495ED]" />
+                    </div>
+                    <div className="space-y-3">
+                        <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                            <motion.div initial={{ width: 0 }} animate={{ width: "70%" }} transition={{ duration: 1.5 }} className="h-full bg-[#0B1B3A]" />
+                        </div>
+                        <div className="h-1.5 w-4/5 bg-slate-100 rounded-full overflow-hidden">
+                            <motion.div initial={{ width: 0 }} animate={{ width: "85%" }} transition={{ duration: 1.5, delay: 0.2 }} className="h-full bg-[#6495ED]" />
+                        </div>
+                    </div>
+                </div>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* ================= SOLUTIONS ================= */}
-      <section className="max-w-7xl mx-auto px-6 py-28">
-        <motion.h2
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="text-[clamp(2rem,6vw,4rem)] font-black tracking-tight leading-tight mb-16"
-        >
-          Precision <span className="italic font-light text-[#5B6E99]">&</span>
-          <br />
-          <span className="text-[#6495ED]">Capital Delivery</span>
-        </motion.h2>
-
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-12 gap-6"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-        >
-          <Card span="md:col-span-7" icon={<Rocket />} title="Project Finance" desc="Strategic capital infusion up to ₹10 Crores for scalable ventures." />
-          <Card span="md:col-span-5" icon={<HomeIcon />} title="Retail Loans" desc="Personalized funding up to ₹10 Lakhs with digital-first speed." />
-          <Card span="md:col-span-5" icon={<Landmark />} title="Asset Backed" desc="Sophisticated property-driven liquidity for high-net-worth needs." />
-          <Card span="md:col-span-7" icon={<Globe />} title="Global Trade" desc="Institutional gold & export finance for international expansion." />
-        </motion.div>
-      </section>
-
-            {/* ================= STATS SECTION ================= */}
-      <section className="px-4 py-12 md:py-24">
-        <div className="bg-[#0B1B3A] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden relative">
-          {/* Decorative background for Stats */}
-          <div className="absolute inset-0 opacity-10 pointer-events-none">
-            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#6495ED,transparent)]" />
+      {/* ================= SOLUTIONS GRID ================= */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-12">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4 text-[#0B1B3A]">
+              Specializations
+            </h2>
+            <div className="h-1 w-12 bg-[#6495ED]" />
           </div>
 
-          <div className="max-w-7xl mx-auto px-8 py-20 md:py-32 grid lg:grid-cols-2 gap-16 items-center relative z-10">
-            <motion.div
-               initial={{ opacity: 0, x: -30 }}
-               whileInView={{ opacity: 1, x: 0 }}
-               viewport={{ once: true }}
-            >
-              <h3 className="text-5xl md:text-7xl font-black text-white leading-tight mb-8">
-                The FIP <br />
-                <span className="text-[#6495ED]">Advantage</span>
-              </h3>
-              <div className="grid grid-cols-2 gap-8 md:gap-12 mt-12">
-                <TextMetrics value="7Yrs" label="Max Tenure" light />
-                <TextMetrics value="100+" label="Global Partners" light />
-              </div>
-            </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <BentoCard
+              span="md:col-span-2"
+              icon={<Rocket />}
+              title="Project Finance"
+              desc="Full-spectrum capital deployment for industrial expansions up to ₹10 Crores."
+              theme="dark"
+            />
+            <BentoCard
+              icon={<HomeIcon />}
+              title="Retail Loans"
+              desc="Streamlined personal funding for high-impact milestones."
+              theme="light"
+            />
+            <BentoCard
+              icon={<Globe />}
+              title="Global Trade"
+              desc="Export financing and institutional gold liquidity for markets."
+              theme="light"
+            />
+            <BentoCard
+              span="md:col-span-2"
+              icon={<Landmark />}
+              title="Asset Backed Solutions"
+              desc="Leverage property portfolios for liquidity with customized repayment structures."
+              theme="blue"
+            />
+          </div>
+        </div>
+      </section>
 
-            <div className="space-y-4">
-               {[
-                { v: "25%", l: "Short-Term Liquid", i: Zap },
-                { v: "40%", l: "Real Estate Assets", i: Landmark },
-                { v: "20%", l: "Private Equity", i: LineChart },
-               ].map((x, i) => (
-                <motion.div
+      {/* ================= STATS SECTION ================= */}
+      <section className="px-6 py-16">
+        <div className="max-w-7xl mx-auto bg-[#0B1B3A] rounded-2xl p-10 md:p-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="text-3xl md:text-5xl font-black text-white mb-8 tracking-tight">
+                Data Driven Results.
+              </h3>
+              <div className="grid grid-cols-2 gap-8">
+                <Metric value="7Y" label="Max Tenure" />
+                <Metric value="100+" label="Partners" />
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {[
+                { label: "Real Estate Assets", value: "40%", icon: Landmark },
+                { label: "Liquid Capital", value: "25%", icon: Zap },
+                { label: "Equity Growth", value: "20%", icon: LineChart },
+              ].map((item, i) => (
+                <div
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex justify-between items-center p-6 md:p-8 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 hover:bg-white/10 transition-all group"
+                  className="flex items-center justify-between p-5 bg-white/5 border border-white/10 rounded-lg"
                 >
-                  <div className="flex items-center gap-4 md:gap-6">
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-[#6495ED]/20 text-[#6495ED] flex items-center justify-center">
-                      <x.i size={20} />
-                    </div>
-                    <span className="text-white font-bold text-sm md:text-lg uppercase tracking-wider">{x.l}</span>
+                  <div className="flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest">
+                    <item.icon size={16} className="text-[#6495ED]" />
+                    {item.label}
                   </div>
-                  <span className="text-2xl md:text-4xl font-black text-[#6495ED]">{x.v}</span>
-                </motion.div>
-               ))}
+                  <span className="text-2xl font-black text-white">{item.value}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ================= FINAL CTA ================= */}
-      <section className="py-32 text-center px-6">
-        <div className="mb-10 flex justify-center">
-          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#6495ED] to-[#3B71D8] flex items-center justify-center text-white shadow-xl">
-            <Fingerprint size={42} />
-          </div>
+      {/* ================= CALL TO ACTION ================= */}
+      <section className="py-24 text-center px-6">
+        <div className="inline-block p-4 bg-slate-100 rounded-full mb-8">
+            <Fingerprint size={32} className="text-[#0B1B3A]" />
         </div>
-
-        <h3 className="font-black text-[clamp(2.2rem,6vw,4.5rem)] tracking-tight mb-12">
-          Secure Your <br />
-          <span className="text-[#6495ED]">Legacy Today</span>
-        </h3>
-
+        <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-10 text-[#0B1B3A]">
+          Ready for the Next Tier?
+        </h2>
         <button
           onClick={() => navigate("/contact")}
-          className="px-14 py-7 rounded-full bg-[#0B1B3A] text-white font-black tracking-wide flex items-center gap-4 mx-auto hover:shadow-2xl transition"
+          className="px-10 py-5 bg-[#0B1B3A] text-white text-xs font-bold uppercase tracking-[0.2em] transition-all hover:bg-[#6495ED]"
         >
-          Start Journey <ArrowRight size={22} />
+          Secure Consultation
         </button>
       </section>
     </div>
@@ -227,40 +220,43 @@ A comprehensive financial ecosystem designed to support individuals and business
 
 /* ================= SUB COMPONENTS ================= */
 
-function Card({ icon, title, desc, span }) {
+function BentoCard({ icon, title, desc, span = "", theme = "light" }) {
+  const themes = {
+    light: "bg-slate-50 text-[#0B1B3A] border-slate-200",
+    dark: "bg-[#0B1B3A] text-white border-transparent",
+    blue: "bg-[#6495ED] text-white border-transparent",
+  };
+
   return (
     <motion.div
-      variants={fadeUp}
-      whileHover={{ y: -6 }}
-      className={`${span} p-8 md:p-12 bg-white rounded-[2.5rem] border border-[#E4ECFF] transition shadow-sm hover:shadow-xl`}
+      whileHover={{ y: -4 }}
+      className={`${span} ${themes[theme]} p-8 rounded-xl border flex flex-col justify-between transition-all`}
     >
-      <div className="w-16 h-16 rounded-2xl bg-[#F0F5FF] text-[#6495ED] flex items-center justify-center mb-8">
-        {React.cloneElement(icon, { size: 26 })}
+      <div>
+        <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-8 ${theme === 'light' ? 'bg-[#6495ED]/10 text-[#6495ED]' : 'bg-white/10 text-white'}`}>
+          {React.cloneElement(icon, { size: 22 })}
+        </div>
+        <h4 className="text-xl font-black mb-3 tracking-tight">{title}</h4>
+        <p className="text-sm opacity-80 leading-relaxed font-medium">
+          {desc}
+        </p>
       </div>
-
-      <h4 className="font-black text-xl md:text-2xl tracking-tight mb-4">
-        {title}
-      </h4>
-      <p className="text-[#5B6E99] text-[15px] md:text-[16px] leading-relaxed font-medium">
-        {desc}
-      </p>
-
-      <div className="mt-6 flex items-center gap-2 text-[#6495ED] text-[10px] tracking-[0.25em] font-bold uppercase">
-        Learn More <ChevronRight size={14} />
+      <div className="mt-8 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest opacity-60">
+        Details <ChevronRight size={12} />
       </div>
     </motion.div>
   );
-  
 }
-function TextMetrics({ value, label, light }) {
+
+function Metric({ value, label }) {
   return (
     <div>
-      <span className={`block text-3xl md:text-4xl font-black mb-2 ${light ? "text-white" : "text-ink"}`}>
+      <div className="text-3xl md:text-4xl font-black text-white mb-1 tracking-tight">
         {value}
-      </span>
-      <span className={`text-sm md:text-base font-medium uppercase tracking-wider ${light ? "text-white/70" : "text-ink/70"}`}>
+      </div>
+      <div className="text-[#6495ED] font-bold text-[10px] uppercase tracking-widest">
         {label}
-      </span>
+      </div>
     </div>
   );
 }
